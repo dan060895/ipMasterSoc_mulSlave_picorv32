@@ -44,8 +44,7 @@ module testbench;
 		end
 	end
 
-	picorv32 #(
-	) uut (
+	picorv32  uut (
 		.clk         (clk        ),
 		.resetn      (resetn     ),
 		.trap        (trap       ),

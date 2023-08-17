@@ -66,7 +66,7 @@ endmodule
 
 module picorv32_wrapper #(
 	parameter AXI_TEST = 0,
-	parameter VERBOSE = 1
+	parameter VERBOSE = 0
 ) (
 	input clk,
 	input resetn,

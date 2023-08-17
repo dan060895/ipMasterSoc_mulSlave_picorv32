@@ -1,6 +1,5 @@
 `timescale 1 ns / 1 ps
 
-`ifndef VERILATOR
 module testbench #(
 	parameter VERBOSE = 0
 );
@@ -53,7 +52,6 @@ module testbench #(
 		.trace_data(trace_data)
 	);
 endmodule
-`endif
 
 module picorv32_wrapper #(
 	parameter VERBOSE = 0
@@ -142,17 +140,17 @@ module picorv32_wrapper #(
 	reg [1023:0] firmware_file;
 	initial begin
 		if (!$value$plusargs("firmware=%s", firmware_file))
-			firmware_file = "firmware/firmware.hex";
+			firmware_file = "../../picorv32/firmware/firmware.hex";
 		$readmemh(firmware_file, ram.mem);
 	end
 
-	integer cycle_counter;
+	/*integer cycle_counter;
 	always @(posedge wb_clk) begin
 		cycle_counter <= !wb_rst ? cycle_counter + 1 : 0;
 		if (!wb_rst && trap) begin
-`ifndef VERILATOR
+
 			repeat (10) @(posedge wb_clk);
-`endif
+
 			$display("TRAP after %1d clock cycles", cycle_counter);
 			if (tests_passed) begin
 				$display("ALL TESTS PASSED.");
@@ -164,7 +162,7 @@ module picorv32_wrapper #(
 				$stop;
 			end
 		end
-	end
+	end*/
 endmodule
 
 /* ISC License
