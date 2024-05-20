@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+
+from sys import argv
+from os.path import exists
+
+def test():
+    with open('firmware/main_fw.hex') as f,open('firmware/altera_out.txt', 'w') as f_out:
+        index=1
+        # vector reset FLASH (rx) : ORIGIN = 0x00100000, LENGTH = 0x2000
+        addr = '@000'
+        for line in f:
+            if index>1:
+                line = line.strip()
+                print(line)
+                #xx = line[0:2]+line[3:5]+line[6:8]+line[9:11]
+                if index == 2:
+                    xx ="@0 "+line[9:11]+line[6:8]+line[3:5]+line[0:2]
+                    f_out.write(xx+'\n')
+                    print(xx)
+                    offset = 12
+                    xx = line[offset+9:offset+11]+line[offset+6:offset+8]+line[offset+3:offset+5]+line[offset+0:offset+2]
+                    f_out.write(xx+'\n')
+                    print(xx)
+                    offset = 12*2
+                    xx = line[offset+9:offset+11]+line[offset+6:offset+8]+line[offset+3:offset+5]+line[offset+0:offset+2]
+                    f_out.write(xx+'\n')
+                    print(xx)
+                    offset = 12*3
+                    xx = line[offset+9:offset+11]+line[offset+6:offset+8]+line[offset+3:offset+5]+line[offset+0:offset+2]
+                    f_out.write(xx+'\n')
+                    print(xx)
+                else:
+                    xx =line[9:11]+line[6:8]+line[3:5]+line[0:2]
+                    if line[0] == '@':
+                        print('find it!')
+                        address = addr + line[4:10]
+                        f_out.write(address+'\n')
+                        print(address)
+                    else:
+                        f_out.write(xx+'\n')
+                        print(xx)
+                        offset = 12
+                        xx = line[offset+9:offset+11]+line[offset+6:offset+8]+line[offset+3:offset+5]+line[offset+0:offset+2]
+                        f_out.write(xx+'\n')
+                        print(xx)
+                        offset = 12*2
+                        xx = line[offset+9:offset+11]+line[offset+6:offset+8]+line[offset+3:offset+5]+line[offset+0:offset+2]
+                        f_out.write(xx+'\n')
+                        print(xx)
+                        offset = 12*3
+                        xx = line[offset+9:offset+11]+line[offset+6:offset+8]+line[offset+3:offset+5]+line[offset+0:offset+2]
+                        f_out.write(xx+'\n')
+                        print(xx)
+            index = index + 1
+	    #print(line[0:2],line[3:5],line[6:8],line[9:11])
+	    #line = int(line,16)
+	    #f_out.write('{}\n'.format(hex(line)))
+    print("done.")
+
+if __name__ == '__main__':
+    test()
