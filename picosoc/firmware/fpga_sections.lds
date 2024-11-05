@@ -17,6 +17,7 @@ SECTIONS {
         _etext = .;
         _sidata = _etext;
     } >FLASH
+
     .data : AT ( _sidata )
     {
         . = ALIGN(4);
@@ -30,6 +31,7 @@ SECTIONS {
         . = ALIGN(4);
         _edata = .;
     } >RAM
+
     .bss :
     {
         . = ALIGN(4);
@@ -42,9 +44,23 @@ SECTIONS {
         . = ALIGN(4);
         _ebss = .;
     } >RAM
+
+    
+    .irq :
+    {
+        . = ALIGN(0x200);   
+        irq_regs_start = .;
+        KEEP(*(.irq_regs))  
+        irq_stack_start = .;
+        KEEP(*(.irq_stack)) 
+        irq_stack_end = .;
+    } > RAM
+
     .heap :
     {
         . = ALIGN(4);
         _heap_start = .;
     } >RAM
+
+    _stack_top = ORIGIN(RAM) + LENGTH(RAM); 
 }

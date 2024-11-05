@@ -17,12 +17,9 @@
  *
  */
 
-`ifndef PICORV32_REGS
+
 `ifdef PICORV32_V
 `error "picosoc.v must be read before picorv32.v!"
-`endif
-
-`define PICORV32_REGS picosoc_regs
 `endif
 
 `ifndef PICOSOC_MEM
@@ -62,19 +59,39 @@ module picosoc_AIP (
     // -------- 
 
 );
-    
-	parameter [0:0] BARREL_SHIFTER = 1;
-	parameter [0:0] ENABLE_MUL = 1;
-	parameter [0:0] ENABLE_DIV = 1;
-	parameter [0:0] ENABLE_FAST_MUL = 0;
+    parameter [ 0:0] ENABLE_COUNTERS = 1;
+	parameter [ 0:0] ENABLE_COUNTERS64 = 1;
+	parameter [ 0:0] ENABLE_REGS_16_31 = 1;
+	parameter [ 0:0] ENABLE_REGS_DUALPORT = 1;
+	parameter [ 0:0] TWO_STAGE_SHIFT = 1;
+	parameter [ 0:0] BARREL_SHIFTER = 1;
+	parameter [ 0:0] TWO_CYCLE_COMPARE = 0;
+	parameter [ 0:0] TWO_CYCLE_ALU = 0;
+	parameter [ 0:0] COMPRESSED_ISA = 1;
+	parameter [ 0:0] CATCH_MISALIGN = 1;
+	parameter [ 0:0] CATCH_ILLINSN = 1;
+	parameter [ 0:0] ENABLE_PCPI = 0;
+	parameter [ 0:0] ENABLE_MUL = 1;
+	parameter [ 0:0] ENABLE_FAST_MUL = 1;
+	parameter [ 0:0] ENABLE_DIV = 0;
+	parameter [ 0:0] ENABLE_IRQ = 1;
+	parameter [ 0:0] ENABLE_IRQ_QREGS = 1;
+	parameter [ 0:0] ENABLE_IRQ_TIMER = 1;
+	parameter [ 0:0] ENABLE_TRACE = 1;
+	parameter [ 0:0] REGS_INIT_ZERO = 0;
+	parameter [31:0] MASKED_IRQ = 32'h 0000_0000;
+	parameter [31:0] LATCHED_IRQ = 32'h ffff_ffff;
+	//parameter [31:0] PROGADDR_RESET = 32'h 0000_0000;
+	//parameter [31:0] PROGADDR_IRQ = 32'h 0000_0010;
+	//parameter [31:0] STACKADDR = 32'h ffff_ffff;
+
 	parameter [0:0] ENABLE_COMPRESSED = 1;
-	parameter [0:0] ENABLE_COUNTERS = 1;
-	parameter [0:0] ENABLE_IRQ_QREGS = 0;
+	
 
 	parameter integer MEM_WORDS = 256;
 	parameter [31:0] STACKADDR = (4*MEM_WORDS/2);       // end of RAM memory
 	parameter [31:0] PROGADDR_RESET = 32'h 0010_0000; // 1 MB into flash
-	parameter [31:0] PROGADDR_IRQ = 32'h 0000_0000;
+	parameter [31:0] PROGADDR_IRQ = 32'h 0010_0010;
 
 	reg [31:0] irq;
 	wire irq_stall = 0;
@@ -91,11 +108,11 @@ module picosoc_AIP (
 
 	wire mem_valid;
 	wire mem_instr;
-	wire mem_ready;
+	wire mem_ready, mem_readyMEM, mem_readIPCORE;
 	wire [31:0] mem_addr;
 	wire [31:0] mem_wdata;
 	wire [3:0] mem_wstrb;
-	wire [31:0] mem_rdata;
+	wire [31:0] mem_rdata, mem_rdata_mem, mem_rdata_ipcore;
 
 	reg rom_ready;
 	wire rom_mem_valid;
@@ -103,6 +120,21 @@ module picosoc_AIP (
 
 	reg ram_ready;
 	wire [31:0] ram_rdata;
+
+ // IP_Module0
+       localparam IP0_BASE_ADDR = 32'h80000100;
+       localparam IP0_RANGE     = IP0_BASE_ADDR + 32'h00000100;
+       
+ 	wire         	sel_aip0, mem_readyAIP0;
+   	wire [31:0]  	mem_rdata_AIP0;
+
+   	wire [31:0]     iPdataIn0, iPdataOut0;
+   	wire            iPwrite0, iPread0, iPstart0;
+   	wire [4:0]      iPconf0;
+   	wire [15:0]     iPINTstatus0;
+
+   	
+   	assign sel_aip0 = (((IP0_BASE_ADDR <= mem_addr) && (mem_addr <= (IP0_RANGE))))? 1'b1 : 1'b0;
 
 	assign iomem_valid = mem_valid && (mem_addr[31:24] > 8'h 01);
 	assign rom_mem_valid = mem_valid && (mem_addr >= 4*MEM_WORDS && mem_addr < 32'h 0200_0000); 
@@ -118,25 +150,43 @@ module picosoc_AIP (
 	wire        simpleuart_reg_dat_wait;
 
 	assign mem_ready = (iomem_valid && iomem_ready) || rom_ready || ram_ready ||
-			simpleuart_reg_div_sel || (simpleuart_reg_dat_sel && !simpleuart_reg_dat_wait);
+			simpleuart_reg_div_sel || (simpleuart_reg_dat_sel && !simpleuart_reg_dat_wait) || (sel_aip0 && mem_readyAIP0) ;
 
 	assign mem_rdata = (iomem_valid && iomem_ready) ? iomem_rdata :rom_ready ? rom_mem_rdata : ram_ready ? ram_rdata : simpleuart_reg_div_sel ? simpleuart_reg_div_do :
-			simpleuart_reg_dat_sel ? simpleuart_reg_dat_do : 32'h 0000_0000;
+			simpleuart_reg_dat_sel ? simpleuart_reg_dat_do : sel_aip0? mem_rdata_AIP0 : 32'h 0000_0000;
+			
+			
+			
 
     wire [(4*32)-1:0] rdDataConfigReg;
 
+
 	picorv32 #(
-		.STACKADDR(STACKADDR),
-		.PROGADDR_RESET(PROGADDR_RESET),
-		.PROGADDR_IRQ(PROGADDR_IRQ),
-		.BARREL_SHIFTER(BARREL_SHIFTER),
-		.COMPRESSED_ISA(ENABLE_COMPRESSED),
-		.ENABLE_COUNTERS(ENABLE_COUNTERS),
-		.ENABLE_MUL(ENABLE_MUL),
-		.ENABLE_DIV(ENABLE_DIV),
-		.ENABLE_FAST_MUL(ENABLE_FAST_MUL),
-		.ENABLE_IRQ(1),
-		.ENABLE_IRQ_QREGS(ENABLE_IRQ_QREGS)
+		.ENABLE_COUNTERS     (ENABLE_COUNTERS     ),
+		.ENABLE_COUNTERS64   (ENABLE_COUNTERS64   ),
+		.ENABLE_REGS_16_31   (ENABLE_REGS_16_31   ),
+		.ENABLE_REGS_DUALPORT(ENABLE_REGS_DUALPORT),
+		.TWO_STAGE_SHIFT     (TWO_STAGE_SHIFT     ),
+		.BARREL_SHIFTER      (BARREL_SHIFTER      ),
+		.TWO_CYCLE_COMPARE   (TWO_CYCLE_COMPARE   ),
+		.TWO_CYCLE_ALU       (TWO_CYCLE_ALU       ),
+		.COMPRESSED_ISA      (COMPRESSED_ISA      ),
+		.CATCH_MISALIGN      (CATCH_MISALIGN      ),
+		.CATCH_ILLINSN       (CATCH_ILLINSN       ),
+		.ENABLE_PCPI         (ENABLE_PCPI         ),
+		.ENABLE_MUL          (ENABLE_MUL          ),
+		.ENABLE_FAST_MUL     (ENABLE_FAST_MUL     ),
+		.ENABLE_DIV          (ENABLE_DIV          ),
+		.ENABLE_IRQ          (ENABLE_IRQ          ),
+		.ENABLE_IRQ_QREGS    (ENABLE_IRQ_QREGS    ),
+		.ENABLE_IRQ_TIMER    (ENABLE_IRQ_TIMER    ),
+		.ENABLE_TRACE        (ENABLE_TRACE        ),
+		.REGS_INIT_ZERO      (REGS_INIT_ZERO      ),
+		.MASKED_IRQ          (MASKED_IRQ          ),
+		.LATCHED_IRQ         (LATCHED_IRQ         ),
+		.PROGADDR_RESET      (PROGADDR_RESET      ),
+		.PROGADDR_IRQ        (PROGADDR_IRQ        ),
+		.STACKADDR           (STACKADDR           )
 	) cpu (
 		.clk         (clk        ),
 		.resetn      (resetn  & (!(rdDataConfigReg[0]))   ),
@@ -149,18 +199,6 @@ module picosoc_AIP (
 		.mem_rdata   (mem_rdata  ),
 		.irq         (irq        )
 	);
-/*
-picosoc_mem_rom #(
-                .WORDS(MEM_WORDS)
-        ) memoryROM (
-                .clk(clk),
-                //.wen((mem_valid && mem_addr >= 4*MEM_WORDS && mem_addr < 32'h 0200_0000) ? mem_wstrb : 4'b0),
-                .addr(mem_addr[$clog2(MEM_WORDS)-1 + 2 :2]),
-                //.wdata(mem_wdata),
-                .rdata(rom_mem_rdata)
-        );
-*/
-	//assign rom_debug = rom_mem_rdata[31:16];
 	
 	simpleuart simpleuart (
 		.clk         (clk         ),
@@ -225,6 +263,51 @@ picosoc_mem_rom #(
         .intIPCore_Done         (),
         .startIPcore            (startIPcore)
 );
+
+
+	native_aip CPU_to_aip0(
+    		.i_clk			(clk),
+    		.i_rst			(resetn),
+
+		.i_cpu_mem_valid	(mem_valid),
+		.i_cpu_mem_addr		(mem_addr),
+		.i_cpu_mem_wdata	(mem_wdata),
+		.i_cpu_mem_wen		(mem_valid && !mem_readyAIP0 &&((sel_aip0)? |(mem_wstrb) : 1'b0)),
+
+		.o_cpu_mem_rdata	(mem_rdata_AIP0),
+		.o_cpu_mem_ready	(mem_readyAIP0),
+		.o_cpu_irq		(),
+
+    // aip interface
+    		.i_aip_sel		(sel_aip0),
+    		.i_aip_enable		(1'b1),
+    		.i_aip_dataOut		(iPdataOut0),
+    		.o_aip_dataIn		(iPdataIn0),
+    		.o_aip_config		(iPconf0),
+    		.o_aip_read		(iPread0),
+    		.o_aip_write		(iPwrite0),
+    		.o_aip_start		(iPstart0),
+    		.i_aip_int		(iPINTstatus0),
+    		.o_core_int		()
+	);
+
+  
+	ID00001001_dummy
+	DUMMY0
+	(
+	    .clk 	(clk),
+	    .rst_a 	(resetn),
+	    .en_s 	(1'b1),
+
+	    .data_in	(iPdataIn0),
+	    .data_out	(iPdataOut0),
+	    .write	(iPwrite0),
+	    .read	(iPread0),
+	    .start	(iPstart0),
+	    .conf_dbus	(iPconf0),
+	    .int_req	(iPINTstatus0)
+	);
+
 endmodule
 
 // Implementation note:

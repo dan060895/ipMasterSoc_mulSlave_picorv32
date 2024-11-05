@@ -9,10 +9,7 @@
 
 uint32_t *irq(uint32_t *regs, uint32_t irqs)
 {
-	static unsigned int ext_irq_4_count = 0;
-	static unsigned int ext_irq_5_count = 0;
-	static unsigned int timer_irq_count = 0;
-
+	
 	// checking compressed isa q0 reg handling
 	if ((irqs & 6) != 0) {
 		uint32_t pc = (regs[0] & 1) ? regs[0] - 3 : regs[0] - 4;
@@ -33,22 +30,7 @@ uint32_t *irq(uint32_t *regs, uint32_t irqs)
 			__asm__ volatile ("ebreak");
 		}
 	}
-
-	if ((irqs & (1<<4)) != 0) {
-		ext_irq_4_count++;
-		// print_str("[EXT-IRQ-4]");
-	}
-
-	if ((irqs & (1<<5)) != 0) {
-		ext_irq_5_count++;
-		print("[EXT-IRQ-5]");
-	}
-
-	if ((irqs & 1) != 0) {
-		timer_irq_count++;
-		// print_str("[TIMER-IRQ]");
-	}
-
+	
 	if ((irqs & 6) != 0)
 	{
 		uint32_t pc = (regs[0] & 1) ? regs[0] - 3 : regs[0] - 4;
@@ -80,61 +62,25 @@ uint32_t *irq(uint32_t *regs, uint32_t irqs)
 			print(": 0x");
 			print_hex(instr, ((instr & 3) == 3) ? 8 : 4);
 			print("\n");
-		}
-
-		for (int i = 0; i < 8; i++)
-		for (int k = 0; k < 4; k++)
-		{
-			int r = i + k*8;
-
-			if (r == 0) {
-				print("pc  ");
-			} else
-			if (r < 10) {
-				putchar('x');
-				putchar('0' + r);
-				putchar(' ');
-				putchar(' ');
-			} else
-			if (r < 20) {
-				putchar('x');
-				putchar('1');
-				putchar('0' + r - 10);
-				putchar(' ');
-			} else
-			if (r < 30) {
-				putchar('x');
-				putchar('2');
-				putchar('0' + r - 20);
-				putchar(' ');
-			} else {
-				putchar('x');
-				putchar('3');
-				putchar('0' + r - 30);
-				putchar(' ');
+			while (1)
+			{
+				if(reg_leds== 0)
+					reg_leds = 1;
+				else
+					reg_leds = 0;	
+				for (int rep = 200; rep > 0; rep--)
+				//	for (int rep = 100000; rep > 0; rep--)
+				{
+					__asm__ volatile ("nop");//asm volatile("");
+				}
 			}
-
-			print_hex(regs[r], 8);
-			print(k == 3 ? "\n" : "    ");
 		}
-
-		print("------------------------------------------------------------\n");
-
-		print("Number of fast external IRQs counted: ");
-		print_dec(ext_irq_4_count);
-		print("\n");
-
-		print("Number of slow external IRQs counted: ");
-		print_dec(ext_irq_5_count);
-		print("\n");
-
-		print("Number of timer IRQs counted: ");
-		print_dec(timer_irq_count);
-		print("\n");
-
-		__asm__ volatile ("ebreak");
 	}
-
+	print("Regs");
+	print_hex(regs[0], 8);
+	print("irqs");
+    print_hex(irqs, 8);
+    
 	return regs;
 }
 

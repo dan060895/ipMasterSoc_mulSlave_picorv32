@@ -56,9 +56,6 @@ localparam  CYCLE		  = 'd20, // Define the clock work cycle in ns (user)
 	initial begin
 		$dumpfile("testbench.vcd");
 		$dumpvars(0, testbench_picosoc_AIP);
-         for (integer x=0;x<64;x++) begin
-        	$dumpvars(1,testbench_picosoc_AIP.uut.soc.interface_PICORV32.AIP.MEMIN[0].genblk1.MEMIN.RAM_Structure[x]);
-        end
 		repeat (6) begin
 			repeat (50000) @(posedge clk);
 			$display("+50000 cycles");

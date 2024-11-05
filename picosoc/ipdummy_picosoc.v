@@ -22,12 +22,14 @@
 `endif
 
 
-module max10_picosoc (
+module ipdummy_picosoc (
 	input clk,
     input rst,
 	input ena,
 	output ser_tx,
 	input ser_rx,
+
+	input irq_5,
 
 	output led1,
 	output led2,
@@ -113,10 +115,6 @@ wire locked;
 	end
 
 	picosoc_AIP #(
-		.BARREL_SHIFTER(0),
-		.ENABLE_MUL(0),
-		.ENABLE_DIV(0),
-		.ENABLE_FAST_MUL(1),
 		.MEM_WORDS(MEM_WORDS)
 	) soc (
 		.clk          (clk_12Mhz         ),
@@ -124,26 +122,8 @@ wire locked;
 
 		.ser_tx       (ser_tx      ),
 		.ser_rx       (ser_rx      ),
-/*
-		.flash_csb    (flash_csb   ),
-		.flash_clk    (flash_clk   ),
 
-		.flash_io0_oe (flash_io0_oe),
-		.flash_io1_oe (flash_io1_oe),
-		.flash_io2_oe (flash_io2_oe),
-		.flash_io3_oe (flash_io3_oe),
-
-		.flash_io0_do (flash_io0_do),
-		.flash_io1_do (flash_io1_do),
-		.flash_io2_do (flash_io2_do),
-		.flash_io3_do (flash_io3_do),
-
-		.flash_io0_di (flash_io0_di),
-		.flash_io1_di (flash_io1_di),
-		.flash_io2_di (flash_io2_di),
-		.flash_io3_di (flash_io3_di),
-*/
-		.irq_5        (1'b0        ),
+		.irq_5        (irq_5      ),
 		.irq_6        (1'b0        ),
 		.irq_7        (1'b0        ),
 

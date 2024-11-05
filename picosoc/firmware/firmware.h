@@ -8,6 +8,8 @@
 #ifndef FIRMWARE_H
 #define FIRMWARE_H
 
+#define reg_leds (*(volatile uint32_t*)0x03000000)
+
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -15,11 +17,10 @@
 uint32_t *irq(uint32_t *regs, uint32_t irqs);
 
 // print.c
-void print_chr(char ch);
-void print_uint32(uint32_t ch);
-void print_str(const char *p);
-void print_dec(unsigned int val);
-void print_hex(unsigned int val, int digits);
+void putchar(char c);
+void print(const char *p);
+void print_hex(uint32_t v, int digits);
+void print_dec(uint32_t v);
 
 // main.c
 void main(void);
