@@ -34,6 +34,10 @@ synth: $(BASICBLOCKS)memories/simple_dual_port_ram_single_clk.v $(BASICBLOCKS)ai
 	#-- Compilar
 	$(IVERILOG) $^ -o $(NAME)_tb.out
 	
+synth_soc: $(BASICBLOCKS)memories/simple_dual_port_ram_single_clk.v $(BASICBLOCKS)aip/aipModules.v $(BASICBLOCKS)sequential/upCounter.v $(BASICBLOCKS)sequential/shiftRegister.v $(IPDUMMY_SRC)*.v testbench_dummy_picosoc_Builder.v native_aip.v builder_picosoc.v picosoc_ipdi.v ID0000200F_aip.v simpleuart.v picorv32_AIP.v picorv32.v
+	#-- Compilar
+	$(IVERILOG) $^ -o $(NAME)_tb.out
+
 synth3:testbench_ez.v picorv32.v
 	$(IVERILOG) -o $@ $(subst C,-DCOMPRESSED_ISA,$(COMPRESSED_ISA)) $^
 	chmod -x $@
@@ -42,6 +46,10 @@ synth2: $(MODULES).ys
 	$(IVERILOG) -g2012 -Wall -c $^ -o $(NAME)_tb.out
 	
 sim:*.out
+	#-- Simular
+	vvp $(NAME)_tb.out
+
+sim_soc:*.out
 	#-- Simular
 	vvp $(NAME)_tb.out
 	
