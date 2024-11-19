@@ -40,6 +40,8 @@ module builder_picosoc (
 	output ledr_n,
 	output ledg_n,
 	
+	input  [15:0] GPIO_in,
+	output [15:0] GPIO_out, GPIO_we,
 	       //-------------------------- To/From NIc --------------------------//
     input   wire    [4:0]                   conf_dbus,          //Used for protocol to determine different actions types
     input   wire                            read,               //Used for protocol to read different information types
@@ -115,30 +117,33 @@ wire locked;
 	end
 
 	picosoc_ipdi soc (
-		.clk          (clk_12Mhz         ),
-		.resetn       (resetn      ),
+		.clk           (clk_12Mhz   ),
+		.resetn        (resetn      ),
 
-		.ser_tx       (ser_tx      ),
-		.ser_rx       (ser_rx      ),
+		.ser_tx        (ser_tx      ),
+		.ser_rx        (ser_rx      ),
 
-		.irq_5        (irq_5      ),
-		.irq_6        (1'b0        ),
-		.irq_7        (1'b0        ),
+		.irq_5         (irq_5       ),
+		.irq_6         (1'b0        ),
+		.irq_7         (1'b0        ),
 
-		.iomem_valid  (iomem_valid ),
-		.iomem_ready  (iomem_ready ),
-		.iomem_wstrb  (iomem_wstrb ),
-		.iomem_addr   (iomem_addr  ),
-		.iomem_wdata  (iomem_wdata ),
-		.iomem_rdata  (iomem_rdata ),
+		.iomem_valid   (iomem_valid ),
+		.iomem_ready   (iomem_ready ),
+		.iomem_wstrb   (iomem_wstrb ),
+		.iomem_addr    (iomem_addr  ),
+		.iomem_wdata   (iomem_wdata ),
+		.iomem_rdata   (iomem_rdata ),
 		
+		.GPIO_in	   (GPIO_in     ),
+		.GPIO_out	   (GPIO_out    ),
+		.GPIO_we	   (GPIO_we     ),
 		  //--- AIP ---//
-        .data_in       (data_in    ),
-        .data_out      (data_out   ),
-        .conf_dbus     (conf_dbus  ),
-        .read          (read       ),
-        .write         (write      ),
-        .start         (start      ),
-        .int_req       (int_req    )
+        .data_in       (data_in     ),
+        .data_out      (data_out    ),
+        .conf_dbus     (conf_dbus   ),
+        .read          (read        ),
+        .write         (write       ),
+        .start         (start       ),
+        .int_req       (int_req     )
 	);
 endmodule

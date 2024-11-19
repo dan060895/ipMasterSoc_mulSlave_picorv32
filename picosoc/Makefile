@@ -16,6 +16,8 @@ COMPRESSED_ISA = C
 
 NAME = PICORV32_Module
 IPDUMMY_SRC = ../mods/00001001/hdl/src/
+PWM_SRC = ../../Modules/AIP_PWM/PWM/
+GPIO_SRC = ../../Modules/AIP_GPIO/src/
 BASICBLOCKS = ../mods/basicblocks/
 MODULES= modules
 
@@ -30,11 +32,11 @@ icebsim_max: max10_tb.vvp altera_out.txt
 test_aip_vcd: picoSoC_DDS_tb.vvp firmware/firmware.hex
 	$(VVP) -N $< +vcd +trace +noerror
 	
-synth: $(BASICBLOCKS)memories/simple_dual_port_ram_single_clk.v $(BASICBLOCKS)aip/aipModules.v $(BASICBLOCKS)sequential/upCounter.v $(BASICBLOCKS)sequential/shiftRegister.v $(IPDUMMY_SRC)*.v testbench_dummy_picosoc_AIP.v native_aip.v ipdummy_picosoc.v picosoc_AIP.v ID0000200F_aip.v simpleuart.v picorv32.v
+synth: $(BASICBLOCKS)memories/simple_dual_port_ram_single_clk.v $(BASICBLOCKS)aip/aipModules.v $(BASICBLOCKS)sequential/upCounter.v $(BASICBLOCKS)sequential/shiftRegister.v $(IPDUMMY_SRC)*.v $(PWM_SRC)src/*.v $(PWM_SRC)ID0000200e_files_pwm_module/*.v $(GPIO_SRC)*.v $(GPIO_SRC)ID0000100A_GPIO_aip/*.v testbench_dummy_picosoc_AIP.v native_aip.v ipdummy_picosoc.v picosoc_AIP.v ID0000200F_aip.v simpleuart.v picorv32.v
 	#-- Compilar
 	$(IVERILOG) $^ -o $(NAME)_tb.out
 	
-synth_soc: $(BASICBLOCKS)memories/simple_dual_port_ram_single_clk.v $(BASICBLOCKS)aip/aipModules.v $(BASICBLOCKS)sequential/upCounter.v $(BASICBLOCKS)sequential/shiftRegister.v $(IPDUMMY_SRC)*.v testbench_dummy_picosoc_Builder.v native_aip.v builder_picosoc.v picosoc_ipdi.v ID0000200F_aip.v simpleuart.v picorv32_AIP.v picorv32.v
+synth_soc: $(BASICBLOCKS)memories/simple_dual_port_ram_single_clk.v $(BASICBLOCKS)aip/aipModules.v $(BASICBLOCKS)sequential/upCounter.v $(BASICBLOCKS)sequential/shiftRegister.v $(IPDUMMY_SRC)*.v $(PWM_SRC)src/*.v $(PWM_SRC)ID0000200e_files_pwm_module/*.v $(GPIO_SRC)*.v $(GPIO_SRC)ID0000100A_GPIO_aip/*.v testbench_dummy_picosoc_Builder.v native_aip.v builder_picosoc.v picosoc_ipdi.v ID0000200F_aip.v simpleuart.v picorv32_AIP.v picorv32.v
 	#-- Compilar
 	$(IVERILOG) $^ -o $(NAME)_tb.out
 

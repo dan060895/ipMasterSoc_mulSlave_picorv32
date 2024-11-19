@@ -48,6 +48,8 @@ module picosoc_ipdi (
 	output ser_tx,
 	input  ser_rx,
 	
+	input  [15:0] GPIO_in,
+	output [15:0] GPIO_out, GPIO_we,
     //-------------------------- To/From NIc --------------------------//
     input   wire    [4:0]                   conf_dbus,          //Used for protocol to determine different actions types
     input   wire                            read,               //Used for protocol to read different information types
@@ -159,45 +161,56 @@ ID00001001_dummy
 	    .rst_a 		(resetn),
 	    .en_s 		(1'b1),
 
-	    .data_in	(iPdataIn0),
+	    .data_in	(oPdataIn0),
 	    .data_out	(iPdataOut0),
-	    .write		(iPwrite0),
-	    .read		(iPread0),
-	    .start		(iPstart0),
-	    .conf_dbus	(iPconf0),
+	    .write		(oPwrite0),
+	    .read		(oPread0),
+	    .start		(oPstart0),
+	    .conf_dbus	(oPconf0),
 	    .int_req	(iPINTstatus0)
 	);
+wire pwm_out3, pwm_out2, pwm_out1, pwm_out0;
 
-ID00001001_dummy
-	DUMMY1
-	(
-	    .clk 		(clk),
-	    .rst_a 		(resetn),
-	    .en_s 		(1'b1),
+gpio_module AIP_GPIO_Module(
+    .clk_in         (clk),     	// Clock
+    .rst_in         (resetn),     // reset low active
+    .enable         (1'b1),
+    //-------------------------- To/From NIc --------------------------//
+    .configAIP      (oPconf1),      //Used for protocol to determine different actions types
+    .readAIP        (oPread1),      //Used for protocol to read different information types
+    .writeAIP       (oPwrite1),     //Used for protocol to write different information types
+    .startAIP       (oPstart1),     //Used to start the IP-core
+    .dataInAIP      (oPdataIn1),    //different data in information types
+    .intAIP         (iPINTstatus1),            			  //Interruption request
+    .dataOutAIP     (iPdataOut1),   //different data out information types
 
-	    .data_in	(iPdataIn1),
-	    .data_out	(iPdataOut1),
-	    .write		(iPwrite1),
-	    .read		(iPread1),
-	    .start		(iPstart1),
-	    .conf_dbus	(iPconf1),
-	    .int_req	(iPINTstatus1)
-	);
+    // IP signals 
+    .AF_in          ({12'h000,pwm_out3, pwm_out2, pwm_out1, pwm_out0}),	
+	.GPIO_in        (GPIO_in),
+	.GPIO_out       (GPIO_out),
+	.GPIO_we        (GPIO_we)
+    );
 
-ID00001001_dummy
-	DUMMY2
-	(
-	    .clk 		(clk),
-	    .rst_a 		(resetn),
-	    .en_s 		(1'b1),
+	pwm_module AIP_PWM_Module(
+    .clk_in         (clk),     	// Clock
+    .rst_in         (resetn),     // reset low active
+    .enable         (1'b1),
+    //-------------------------- To/From NIc --------------------------//
+    .configAIP      (oPconf2),      //Used for protocol to determine different actions types
+    .readAIP        (oPread2),      //Used for protocol to read different information types
+    .writeAIP       (oPwrite2),     //Used for protocol to write different information types
+    .startAIP       (oPstart2),     //Used to start the IP-core
+    .dataInAIP      (oPdataIn2),    //different data in information types
+    .intAIP         (iPINTstatus2),            			  //Interruption request
+    .dataOutAIP     (iPdataOut2),   //different data out information types
 
-	    .data_in	(iPdataIn2),
-	    .data_out	(iPdataOut2),
-	    .write		(iPwrite2),
-	    .read		(iPread2),
-	    .start		(iPstart2),
-	    .conf_dbus	(iPconf2),
-	    .int_req	(iPINTstatus2)
-	);
+    // IP signals 
+    	// --------- outputs --------
+	.pwm_out0       (pwm_out0),
+	.pwm_out1       (pwm_out1),
+	.pwm_out2       (pwm_out2),
+	.pwm_out3       (pwm_out3)
+    );
+
 endmodule
 

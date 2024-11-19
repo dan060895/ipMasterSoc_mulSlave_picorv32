@@ -63,7 +63,7 @@ localparam  CYCLE		  = 'd20, // Define the clock work cycle in ns (user)
         end
 
 		repeat (6) begin
-			repeat (50000) @(posedge clk);
+			repeat (100000) @(posedge clk);
 			$display("+50000 cycles");
 		end
         $dumpall;
@@ -109,6 +109,10 @@ localparam  CYCLE		  = 'd20, // Define the clock work cycle in ns (user)
 	wire ser_rx;
 	wire ser_tx;
 
+    reg  [15:0] GPIO_in;
+    wire [15:0] GPIO_out, GPIO_we;
+
+
     reg [1023:0] firmware_file;
 	reg [31:0] mem [0:2048-1];
 
@@ -131,19 +135,23 @@ localparam  CYCLE		  = 'd20, // Define the clock work cycle in ns (user)
 		// required for intialization of RAM
 		//.MEM_WORDS(256)
 	 uut (
-		.clk           (clk      ),
-		.rst           (rst_a    ), 
-		.ena	       (en_s     ),
-		.led1          (led1     ),
-		.led2          (led2     ),
-		.led3          (led3     ),
-		.led4          (led4     ),
-		.led5          (led5     ),
-		.ledr_n        (ledr_n   ),
-		.ledg_n        (ledg_n   ),
-		.ser_rx        (ser_rx   ),
-		.ser_tx        (ser_tx   ),
-        .irq_5         (irq),
+		.clk           (clk        ),
+		.rst           (rst_a      ), 
+		.ena	       (en_s       ),
+		.led1          (led1       ),
+		.led2          (led2       ),
+		.led3          (led3       ),
+		.led4          (led4       ),
+		.led5          (led5       ),
+		.ledr_n        (ledr_n     ),
+		.ledg_n        (ledg_n     ),
+		.ser_rx        (ser_rx     ),
+		.ser_tx        (ser_tx     ),
+        .irq_5         (irq        ),
+
+        .GPIO_in	   (GPIO_in    ),
+		.GPIO_out	   (GPIO_out   ),
+		.GPIO_we	   (GPIO_we    ),
 			  //--- AIP ---//
         .data_in       (dataInAIP  ),
         .data_out      (dataOutAIP ),
@@ -210,8 +218,8 @@ begin
 	dataInAIP   	= 32'd0;
     i               = 'd0;
     iStartIPcore 	= 1'b1;
-	rst		= 1'b0;	// reset is active
-     
+	rst		        = 1'b0;	// reset is active
+    GPIO_in         = 16'hac12; 
 	#(CYCLE) rst	= 1'b1;	// at time #n release reset
     writeConfReg(CCONFREG, 1, 1,0);  // Reset CPU -- .resetn(resetn  & (!(rdDataConfigReg[0]))   ),
 	#(500*CYCLE)
@@ -245,7 +253,7 @@ begin
     start();
     // START PROCESS
     $display("%7T Sending start", $time);
-    #(1000*CYCLE);
+    #(10000*CYCLE);
 	$display($time, " << finishing Simulation >>");
 end
 
