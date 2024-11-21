@@ -21,6 +21,66 @@ GPIO_SRC = ../../Modules/AIP_GPIO/src/
 BASICBLOCKS = ../mods/basicblocks/
 MODULES= modules
 
+# ---- FPGA IPDI Board -----------
+PROJ=TOP_SOC
+TOP=TOP_SOC_ipdiRDBv2
+FPGA_PACKAGE=CABGA381
+FPGA_TYPE=85k
+LPF=ipdiRDBv2
+
+VIDPID=i:0x0403:0x6010
+INTERFACE=A
+
+VERILOG_FILES:=$(shell cat ${PROJ}.ys | sed 's/.* //')
+
+
+
+all : ${PROJ}.bit
+
+syn : ${PROJ}.json ## Synthesis with Yosys
+
+pnr : ${PROJ}.config ## Place & Route with nextpnr
+
+bit : ${PROJ}.bit ## Bitstream with Project Trellis
+
+%.json : ${VERILOG_FILES}
+	rm -f ${PROJ}.ys.log
+	yosys \
+		-s ${PROJ}.ys \
+		-l ${PROJ}.ys.log \
+		-p "synth_ecp5 -abc9 -json ${PROJ}.json -top ${TOP}"
+
+%.config : ${PROJ}.json 
+	rm -f ${PROJ}.pnr.log
+	nextpnr-ecp5 \
+		--json ${PROJ}.json \
+		--log ${PROJ}.pnr.log \
+		--textcfg ${PROJ}.config \
+		--${FPGA_TYPE} \
+		--package ${FPGA_PACKAGE} \
+		--lpf-allow-unconstrained \
+		--lpf ${LPF}.lpf
+
+%.bit : ${PROJ}.config 
+	ecppack ${PROJ}.config ${PROJ}.bit
+	ecppack --svf ${PROJ}.svf ${PROJ}.config ${PROJ}.bit
+
+pRAM : ${PROJ}.bit ## Program FPGA RAM with ecpprog
+	ecpprog -d $(VIDPID) -I $(INTERFACE) -S ${PROJ}.bit
+
+pROM : ${PROJ}.bit ## Program FPGA ROM with ecpprog
+	ecpprog -d $(VIDPID) -I $(INTERFACE) -a -X -b ${PROJ}.bit
+
+dot : ## Create a top netlist
+	yosys ${PROJ}.ys \
+		-p "hierarchy -check -top $(TOP)" \
+		-p "proc" \
+		-p "opt" \
+		-p "stat" \
+		-p "select -module ${TOP}" \
+		-p "show -prefix ${TOP} -notitle -colors 2 -width -stretch -format dot "
+	xdot ${TOP}.dot
+
 # ---- iCE40 IceBreaker Board ----
 
 icebsim: icebreaker_tb.vvp icebreaker_fw.hex

@@ -1,0 +1,25 @@
+read_verilog TOP_SOC_ipdiRDBv2.v
+read_verilog builder_picosoc.v
+read_verilog picosoc_ipdi.v
+read_verilog simpleuart.v
+read_verilog ID0000200F_aip.v     
+read_verilog native_aip.v        
+read_verilog picorv32_AIP.v       
+read_verilog picorv32.v   
+read_verilog ../mods/basicblocks/ipm/ipm.v  
+read_verilog ../mods/basicblocks/ipm/ipm_register.v  
+read_verilog -nomem2reg ../mods/basicblocks/memories/simple_dual_port_ram_single_clk.v  
+read_verilog ../mods/basicblocks/aip/aipModules.v  
+read_verilog ../mods/00001001/hdl/src/ID00001001_aip.v  
+read_verilog ../mods/00001001/hdl/src/ID00001001_dummy.v 
+read_verilog ../mods/00001001/hdl/src/ID00001001_dummyCore.v   
+read_verilog ../mods/00001001/hdl/src/ID00001001_dummyCtrl.v   
+read_verilog ../../Modules/AIP_GPIO/src/gpio_module.v
+read_verilog ../../Modules/AIP_GPIO/src/ID0000100A_GPIO_aip/ID0000100A_aip.v
+read_verilog ../../Modules/AIP_PWM/PWM/src/IPCoreControlUnitPWM.v
+read_verilog ../../Modules/AIP_PWM/PWM/src/pwm_cnt.v
+read_verilog ../../Modules/AIP_PWM/PWM/src/pwm_core.v
+read_verilog ../../Modules/AIP_PWM/PWM/src/pwm_module.v
+read_verilog ../../Modules/AIP_PWM/PWM/src/PWM_Param_registers.v
+read_verilog ../../Modules/AIP_PWM/PWM/src/pwm_psc.v
+read_verilog ../../Modules/AIP_PWM/PWM/ID0000200e_files_pwm_module/ID0000200e_aip.v

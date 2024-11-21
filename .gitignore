@@ -1,0 +1,10 @@
+*.vcd
+*.out
+mods/
+picosoc/*.bit
+picosoc/*.config
+picosoc/*.json
+picosoc/*.log
+picosoc/*.svf
+picosoc/*.log
+

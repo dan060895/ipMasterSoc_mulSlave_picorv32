@@ -18,18 +18,6 @@
  */
 
 
-`ifdef PICORV32_V
-`error "picosoc.v must be read before picorv32.v!"
-`endif
-
-`ifndef PICOSOC_MEM
-`define PICOSOC_MEM picosoc_mem
-`endif
-
-// this macro can be used to check if the verilog files in your
-// design are read in the correct order.
-`define PICOSOC_V
-
 module picorv32_AIP (
 	input clk,
 	input resetn,
@@ -273,7 +261,7 @@ module picorv32_AIP (
 		.irq         (irq        )
 	);
 	
-	`PICOSOC_MEM #(
+	picosoc_mem #(
 		.WORDS(MEM_WORDS/2)
 	) memory (
 		.clk(clk),
