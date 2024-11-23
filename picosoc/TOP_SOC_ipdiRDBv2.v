@@ -9,14 +9,28 @@ module TOP_SOC_ipdiRDBv2 (
     inout PMOD2_1, PMOD2_2, PMOD2_3, PMOD2_4, PMOD2_7, PMOD2_8, PMOD2_9, PMOD2_10,
  
     	 // MCU
-    input   [3:0]                      addressMCU,         //GPIO[16,14,12,10]
-    input                              rstMCU,             //GPIO[5]
-    input                              rdMCU,              //GPIO[7]
-    input                              wrMCU,              //GPIO[9]
-    inout   [7:0]                      dataMCU,            //GPIO[25,23,21,19,17,15,13,11]
-    output                             intMCU              //GPIO[27]
-
+    //input   [3:0]                      addressMCU,         //GPIO[16,14,12,10]
+    input BRIDGE_ADDR3,BRIDGE_ADDR2,BRIDGE_ADDR1,BRIDGE_ADDR0,
+    //input                              rstMCU,             //GPIO[5]
+    //input                              rdMCU,              //GPIO[7]
+    //input                              wrMCU,              //GPIO[9]
+    input BRIDGE_RD, BRIDGE_WR,BRIDGE_RST,
+    //inout   [7:0]                      dataMCU,            //GPIO[25,23,21,19,17,15,13,11]
+    //output                             intMCU              //GPIO[27]
+    output BRIDGE_INT
 );
+
+wire   [3:0]                      addressMCU;         //GPIO[16,14,12,10]
+wire                              rstMCU;             //GPIO[5]
+wire                              rdMCU;              //GPIO[7]
+wire                              wrMCU;              //GPIO[9]
+wire   [7:0]                      dataMCU;            //GPIO[25,23,21,19,17,15,13,11]
+wire                              intMCU;              //GPIO[27]
+   
+assign addressMCU = {BRIDGE_ADDR3,BRIDGE_ADDR2,BRIDGE_ADDR1,BRIDGE_ADDR0};
+assign {rdMCU,wrMCU,rstMCU}={BRIDGE_RD, BRIDGE_WR,BRIDGE_RST};
+assign BRIDGE_INT = intMCU;
+assign {BRIDGE_DATA7,BRIDGE_DATA6,BRIDGE_DATA5,BRIDGE_DATA4,BRIDGE_DATA3,BRIDGE_DATA2,BRIDGE_DATA1,BRIDGE_DATA0} = dataMCU;
 
 wire [15:0] GPIO;
 assign {PMOD1_1, PMOD1_2, PMOD1_3, PMOD1_4, PMOD1_7, PMOD1_8, PMOD1_9, PMOD1_10} = GPIO[15:8];

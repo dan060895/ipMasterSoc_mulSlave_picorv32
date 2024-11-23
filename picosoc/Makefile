@@ -5,7 +5,7 @@ CFLAGS=
 ICARUS_SUFFIX =
 IVERILOG = iverilog$(ICARUS_SUFFIX)
 VVP = vvp$(ICARUS_SUFFIX)
-PYTHON = python3
+PYTHON = python3.11
 
 TEST_OBJS = $(addsuffix .o,$(basename $(wildcard tests/*.S)))
 FIRMWARE_OBJS = firmware/start.o firmware/irq.o firmware/print.o

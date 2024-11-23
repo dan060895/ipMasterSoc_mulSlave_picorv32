@@ -7,4 +7,6 @@ picosoc/*.json
 picosoc/*.log
 picosoc/*.svf
 picosoc/*.log
+picosoc/firmware/*.elf
+picosoc/firmware/*.hex
 
