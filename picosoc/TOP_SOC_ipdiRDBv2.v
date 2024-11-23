@@ -93,8 +93,8 @@ assign GPIO[15] = GPIO_we[15] ?  GPIO_out[15] : 1'bz;
 
 	ipm IPM
     (
-        .clk_n_Hz				(clk),
-        .ipm_RstIn			(wireReset),
+        .clk_n_Hz		   (CLK_50MHZ),
+        .ipm_RstIn		   (PSH1),
         
         // MCU
         .ipmMCUDataInout   (dataMCU),

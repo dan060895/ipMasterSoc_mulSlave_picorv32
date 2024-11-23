@@ -179,7 +179,7 @@ cmos.log: spimemio.v simpleuart.v picosoc.v ../picorv32.v
 # ---- Clean ----
 
 clean:
-	rm -f testbench.vvp testbench.vcd spiflash_tb.vvp spiflash_tb.vcd *.out main.s irq.s
+	rm -f testbench.vvp testbench.vcd spiflash_tb.vvp spiflash_tb.vcd *.out main.s irq.s *.bit *.config *.json *.pnr.log *.svf
 	rm -f firmware/*.hex firmware/*.elf firmware/*.bin firmware/altera_out.txt
 	rm -vrf $(FIRMWARE_OBJS) $(TEST_OBJS) check.smt2 check.vcd synth.v synth.log \
                 firmware/*.elf firmware/*.bin firmware/*.hex firmware/*.map \
