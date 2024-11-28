@@ -136,7 +136,7 @@ module picosoc_ipdi (
    	.iPINTstatus0	({iPINTstatus0}),
 
 // IP_Module1
-    .oPdataIn1		(oPdataIn1), 
+    .oPdataIn1		(oPdataIn1),  
 	.iPdataOut1		(iPdataOut1),
    	.oPwrite1		(oPwrite1), 
 	.oPread1		(oPread1),
@@ -168,7 +168,7 @@ ID00001001_dummy
 	(
 	    .clk 		(clk),
 	    .rst_a 		(resetn),
-	    .en_s 		(1'b1),
+	    .en_s 		(1'b1), 
 
 	    .data_in	(oPdataIn0),
 	    .data_out	(iPdataOut0),

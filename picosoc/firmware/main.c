@@ -102,9 +102,9 @@ char *logo =
     uint32_t *ptrPWM   = (uint32_t*)AIP_IP_PWM;
 	uint32_t *ptrUART  = (uint32_t*)AIP_IP_UART;
 
-    reg_uart_clkdiv = 104;//5208 for 9600;//104 is 12 MHz for 115200, and 434 is 50Mhz for 115200
+    reg_uart_clkdiv = 434;//5208 for 9600;//104 is 12 MHz for 115200, and 434 is 50Mhz for 115200
     reg_leds = 63;
-    //print(logo);
+    print(logo);
 
     print("Reading IPID !\n");
 	uint32_t IPID = 0;

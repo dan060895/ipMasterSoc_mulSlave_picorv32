@@ -28,7 +28,6 @@ read_verilog ../mods/UART_Builder/Sources/ID0000100B_aip.v
 read_verilog ../mods/UART_Builder/Sources/ID0000100B_UART.v
 read_verilog ../mods/UART_Builder/Sources/UART_Address_Decoder.v 
 read_verilog ../mods/UART_Builder/Sources/UART_Counter.v 
-read_verilog ../mods/UART_Builder/Sources/uart_loopback.v 
 read_verilog ../mods/UART_Builder/Sources/UART_Multiplexer_2_to_1.v 
 read_verilog ../mods/UART_Builder/Sources/UART_One_Shot.v 
 read_verilog ../mods/UART_Builder/Sources/UART_parameterized.v 
