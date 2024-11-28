@@ -6,6 +6,7 @@ read_verilog ID0000200F_aip.v
 read_verilog native_aip.v        
 read_verilog picorv32_AIP.v       
 read_verilog picorv32.v   
+read_verilog blinky.v
 read_verilog ../mods/basicblocks/ipm/ipm.v  
 read_verilog ../mods/basicblocks/ipm/ipm_register.v  
 read_verilog -nomem2reg ../mods/basicblocks/memories/simple_dual_port_ram_single_clk.v  
@@ -23,3 +24,26 @@ read_verilog ../../Modules/AIP_PWM/PWM/src/pwm_module.v
 read_verilog ../../Modules/AIP_PWM/PWM/src/PWM_Param_registers.v
 read_verilog ../../Modules/AIP_PWM/PWM/src/pwm_psc.v
 read_verilog ../../Modules/AIP_PWM/PWM/ID0000200e_files_pwm_module/ID0000200e_aip.v
+read_verilog ../mods/UART_Builder/Sources/ID0000100B_aip.v
+read_verilog ../mods/UART_Builder/Sources/ID0000100B_UART.v
+read_verilog ../mods/UART_Builder/Sources/UART_Address_Decoder.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Counter.v 
+read_verilog ../mods/UART_Builder/Sources/uart_loopback.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Multiplexer_2_to_1.v 
+read_verilog ../mods/UART_Builder/Sources/UART_One_Shot.v 
+read_verilog ../mods/UART_Builder/Sources/UART_parameterized.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Prescaler.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Register.v 
+read_verilog ../mods/UART_Builder/Sources/UART_RX_IRQ.v 
+read_verilog ../mods/UART_Builder/Sources/UART_RX_State_Machine.v 
+read_verilog ../mods/UART_Builder/Sources/UART_RX.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Shift_Register_Left.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Shift_Register_Rigth.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Synchronizer.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Toggle.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Transiver.v 
+read_verilog ../mods/UART_Builder/Sources/UART_TX_State_Machine.v 
+read_verilog ../mods/UART_Builder/Sources/UART_TX.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Up_Counter_Prescaler.v 
+read_verilog ../mods/UART_Builder/Sources/UART_Up_Counter.v 
+read_verilog ../mods/UART_Builder/Sources/UART.v

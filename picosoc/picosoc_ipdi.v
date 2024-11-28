@@ -35,6 +35,9 @@ module picosoc_ipdi (
 
 	output ser_tx,
 	input  ser_rx,
+
+	input 	uart_rx_in,
+    output  uart_tx_out,   
 	
 	input  [15:0] GPIO_in,
 	output [15:0] GPIO_out, GPIO_we,
@@ -85,6 +88,15 @@ module picosoc_ipdi (
    	wire [4:0]      oPconf2;
    	wire [15:0]     iPINTstatus2;
 
+// IP_Module3
+   	wire [31:0]     oPdataIn3; 
+	wire [31:0]     iPdataOut3;
+   	wire            oPwrite3; 
+	wire		    oPread3;
+	wire            oPstart3;
+   	wire [4:0]      oPconf3;
+   	wire [15:0]     iPINTstatus3;
+
    picorv32_AIP picorv32_AIP (
 	.clk			(clk),
 	.resetn			(resetn),
@@ -121,7 +133,7 @@ module picosoc_ipdi (
 	.oPread0		(oPread0),
 	.oPstart0		(oPstart0),
    	.oPconf0		(oPconf0),
-   	.iPINTstatus0	(iPINTstatus0),
+   	.iPINTstatus0	({iPINTstatus0}),
 
 // IP_Module1
     .oPdataIn1		(oPdataIn1), 
@@ -139,7 +151,16 @@ module picosoc_ipdi (
 	.oPread2		(oPread2),
 	.oPstart2		(oPstart2),
    	.oPconf2		(oPconf2),
-   	.iPINTstatus2	(iPINTstatus2)
+   	.iPINTstatus2	(iPINTstatus2),
+
+// IP_Module3
+   	.oPdataIn3		(oPdataIn3), 
+	.iPdataOut3		(iPdataOut3),
+   	.oPwrite3		(oPwrite3), 
+	.oPread3		(oPread3),
+	.oPstart3		(oPstart3),
+   	.oPconf3		(oPconf3),
+   	.iPINTstatus3	(iPINTstatus3)
 );
 
 ID00001001_dummy
@@ -155,7 +176,7 @@ ID00001001_dummy
 	    .read		(oPread0),
 	    .start		(oPstart0),
 	    .conf_dbus	(oPconf0),
-	    .int_req	(iPINTstatus0)
+	    .int_req	(iPINTstatus0[0])
 	);
 wire pwm_out3, pwm_out2, pwm_out1, pwm_out0;
 
@@ -169,7 +190,7 @@ gpio_module AIP_GPIO_Module(
     .writeAIP       (oPwrite1),     //Used for protocol to write different information types
     .startAIP       (oPstart1),     //Used to start the IP-core
     .dataInAIP      (oPdataIn1),    //different data in information types
-    .intAIP         (iPINTstatus1),            			  //Interruption request
+    .intAIP         (iPINTstatus1[0]),            			  //Interruption request
     .dataOutAIP     (iPdataOut1),   //different data out information types
 
     // IP signals 
@@ -189,7 +210,7 @@ gpio_module AIP_GPIO_Module(
     .writeAIP       (oPwrite2),     //Used for protocol to write different information types
     .startAIP       (oPstart2),     //Used to start the IP-core
     .dataInAIP      (oPdataIn2),    //different data in information types
-    .intAIP         (iPINTstatus2),            			  //Interruption request
+    .intAIP         (iPINTstatus2[0]),            			  //Interruption request
     .dataOutAIP     (iPdataOut2),   //different data out information types
 
     // IP signals 
@@ -199,6 +220,25 @@ gpio_module AIP_GPIO_Module(
 	.pwm_out2       (pwm_out2),
 	.pwm_out3       (pwm_out3)
     );
+
+ID0000100B_UART UART_Module
+(
+    .clk			(clk),
+    .rst_a			(resetn),
+    .en_s			(1'b1),
+    .data_in		(oPdataIn3), //different data in information types
+    .data_out		(iPdataOut3), //different data out information types
+    .write			(oPwrite3), //Used for protocol to write different information types
+    .read			(oPread3), //Used for protocol to read different information types
+    .start			(oPstart3), //Used to start the IP-core
+    .conf_dbus		(oPconf3), //Used for protocol to determine different actions types
+    .int_req		(iPINTstatus3[0]), //Interruption request 
+  
+    .uart_rx_in		(uart_rx_in),
+    .uart_tx_out	(uart_tx_out)      
+
+       
+);
 
 endmodule
 

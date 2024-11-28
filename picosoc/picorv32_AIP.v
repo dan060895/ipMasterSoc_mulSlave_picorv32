@@ -72,7 +72,16 @@ module picorv32_AIP (
 	output wire		       oPread2,
 	output wire            oPstart2,
    	output wire [4:0]      oPconf2,
-   	input  wire [15:0]     iPINTstatus2
+   	input  wire [15:0]     iPINTstatus2,
+
+// IP_Module3
+   	output wire [31:0]     oPdataIn3, 
+	input  wire [31:0]     iPdataOut3,
+   	output wire            oPwrite3, 
+	output wire		       oPread3,
+	output wire            oPstart3,
+   	output wire [4:0]      oPconf3,
+   	input  wire [15:0]     iPINTstatus3
 );
 
     // aip interface
@@ -189,10 +198,23 @@ module picorv32_AIP (
    	//wire            iPwrite2, iPread2, iPstart2;
    	//wire [4:0]      iPconf2;
    	//wire [15:0]     iPINTstatus2;
-   	
+
+// IP_Module3
+    localparam IP3_BASE_ADDR = 32'h83000100;
+    localparam IP3_RANGE     = IP3_BASE_ADDR + 32'h00000100;
+       
+ 	wire         	sel_aip3, mem_readyAIP3;
+   	wire [31:0]  	mem_rdata_AIP3;
+
+   	//wire [31:0]     iPdataIn3, iPdataOut3;
+   	//wire            iPwrite3, iPread3, iPstart3;
+   	//wire [4:0]      iPconf3;
+   	//wire [15:0]     iPINTstatus3;
+
    	assign sel_aip0 = (((IP0_BASE_ADDR <= mem_addr) && (mem_addr <= (IP0_RANGE))))? 1'b1 : 1'b0;
    	assign sel_aip1 = (((IP1_BASE_ADDR <= mem_addr) && (mem_addr <= (IP1_RANGE))))? 1'b1 : 1'b0;
    	assign sel_aip2 = (((IP2_BASE_ADDR <= mem_addr) && (mem_addr <= (IP2_RANGE))))? 1'b1 : 1'b0;
+	assign sel_aip3 = (((IP3_BASE_ADDR <= mem_addr) && (mem_addr <= (IP3_RANGE))))? 1'b1 : 1'b0;
 
 	assign iomem_valid    = mem_valid && (mem_addr[31:24] > 8'h 01);
 	assign rom_mem_valid  = mem_valid && (mem_addr >= 4*MEM_WORDS && mem_addr < 32'h 0200_0000); 
@@ -208,10 +230,10 @@ module picorv32_AIP (
 	wire        simpleuart_reg_dat_wait;
 
 	assign mem_ready = (iomem_valid && iomem_ready) || rom_ready || ram_ready ||
-			simpleuart_reg_div_sel || (simpleuart_reg_dat_sel && !simpleuart_reg_dat_wait) || (sel_aip0 && mem_readyAIP0) || (sel_aip1 && mem_readyAIP1) || (sel_aip2 && mem_readyAIP2) ;
+			simpleuart_reg_div_sel || (simpleuart_reg_dat_sel && !simpleuart_reg_dat_wait) || (sel_aip0 && mem_readyAIP0) || (sel_aip1 && mem_readyAIP1) || (sel_aip2 && mem_readyAIP2) || (sel_aip3 && mem_readyAIP3) ;
 
 	assign mem_rdata = (iomem_valid && iomem_ready) ? iomem_rdata :rom_ready ? rom_mem_rdata : ram_ready ? ram_rdata : simpleuart_reg_div_sel ? simpleuart_reg_div_do :
-			simpleuart_reg_dat_sel ? simpleuart_reg_dat_do : sel_aip0? mem_rdata_AIP0 : sel_aip1? mem_rdata_AIP1 : sel_aip2? mem_rdata_AIP2 : 32'h 0000_0000;
+			simpleuart_reg_dat_sel ? simpleuart_reg_dat_do : sel_aip0? mem_rdata_AIP0 : sel_aip1? mem_rdata_AIP1 : sel_aip2? mem_rdata_AIP2 : sel_aip3? mem_rdata_AIP3 :32'h 0000_0000;
 			
 			
 				
@@ -325,7 +347,7 @@ module picorv32_AIP (
     	.o_aip_read			(oPread0),
     	.o_aip_write		(oPwrite0),
     	.o_aip_start		(oPstart0),
-    	.i_aip_int			(iPINTstatus0),
+    	.i_aip_int			(iPINTstatus0[0]),
     	.o_core_int			()
 	);
 /*   	output wire [31:0]     oPdataIn0, 
@@ -358,7 +380,7 @@ module picorv32_AIP (
     	.o_aip_read			(oPread1),
     	.o_aip_write		(oPwrite1),
     	.o_aip_start		(oPstart1),
-    	.i_aip_int			(iPINTstatus1),
+    	.i_aip_int			(iPINTstatus1[0]),
     	.o_core_int			()
 	);
 
@@ -385,11 +407,36 @@ module picorv32_AIP (
     	.o_aip_read			(oPread2),
     	.o_aip_write		(oPwrite2),
     	.o_aip_start		(oPstart2),
-    	.i_aip_int			(iPINTstatus2),
+    	.i_aip_int			(iPINTstatus2[0]),
     	.o_core_int			()
 	);
 
-  
+ 	native_aip CPU_to_aip3(
+    	.i_clk				(clk),
+    	.i_rst				(resetn),
+
+		.i_cpu_mem_valid	(mem_valid),
+		.i_cpu_mem_addr		(mem_addr),
+		.i_cpu_mem_wdata	(mem_wdata),
+		.i_cpu_mem_wen		(mem_valid && !mem_readyAIP3 &&((sel_aip3)? |(mem_wstrb) : 1'b0)),
+
+		.o_cpu_mem_rdata	(mem_rdata_AIP3),
+		.o_cpu_mem_ready	(mem_readyAIP3),
+		.o_cpu_irq			(),
+
+    // aip interface
+    	.i_aip_sel			(sel_aip3),
+    	.i_aip_enable		(1'b1),
+    	.i_aip_dataOut		(iPdataOut3),
+    	.o_aip_dataIn		(oPdataIn3),
+    	.o_aip_config		(oPconf3),
+    	.o_aip_read			(oPread3),
+    	.o_aip_write		(oPwrite3),
+    	.o_aip_start		(oPstart3),
+    	.i_aip_int			(iPINTstatus3[0]),
+    	.o_core_int			()
+	);
+ 
 	simpleuart simpleuart (
 		.clk         (clk         ),
 		.resetn      (resetn      ),

@@ -17,6 +17,7 @@ void putchar(char c)
 	if (c == '\n')
 		putchar('\r');
 	reg_uart_data = c;
+	__asm__ volatile ("nop");//asm volatile("");
 }
 
 void print(const char *p)
