@@ -62,8 +62,8 @@ localparam  CYCLE		  = 'd20, // Define the clock work cycle in ns (user)
             $dumpvars(1, testbench_dummy_picosoc_AIP.uut.soc.memory.mem[idx]);
         end
 
-		repeat (6) begin
-			repeat (50000) @(posedge clk);
+		repeat (15) begin
+			repeat (500000) @(posedge clk);
 			$display("+50000 cycles");
 		end
         $dumpall;

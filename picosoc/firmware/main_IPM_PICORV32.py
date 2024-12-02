@@ -158,7 +158,7 @@ if __name__=="__main__":
     import sys, random, time, os
 
     logging.basicConfig(level=logging.INFO)
-    connector = '/dev/ttyACM0'
+    connector = '/dev/ttyUSB1'
     csv_file = 'ID0000200F_PICORV32/ID0000200F_config.csv'
     addr = 1
     port = 0

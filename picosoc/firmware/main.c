@@ -104,10 +104,10 @@ char *logo =
 
     reg_uart_clkdiv = 434;//5208 for 9600;//104 is 12 MHz for 115200, and 434 is 50Mhz for 115200
     reg_leds = 63;
-    print(logo);
-
-    print("Reading IPID !\n");
+    //print(logo);
 	uint32_t IPID = 0;
+	// ---------------- AIP Dummy ---------
+    print("Reading IPID !\n");
 	*(ptr + AIP_CONFIG) = 5;
 	IPID = *(ptr + AIP_DATAOUT);
 	print_hex(IPID,8);
@@ -139,8 +139,8 @@ char *logo =
 	*(ptr + AIP_DATAIN) = 0x00000010; // 
 	*(ptr + AIP_CONFIG) = 6; // writing CCONFREG just for testing
 
+// ---------------- AIP UART ---------
 
-	// ---------------- AIP UART ---------
 	*(ptrUART + AIP_CONFIG) = 5;
 	IPID = *(ptrUART + AIP_DATAOUT);
 	print_hex(IPID,8);
@@ -158,37 +158,52 @@ char *logo =
 	*(ptrUART + AIP_CONFIG) = 5;  // ACONFREG 0b00011,1,W,We Pointer of MMEMIN
 	*(ptrUART + AIP_DATAIN) = 0x0; // Set ptr CCONFREG 0,
     *(ptrUART + AIP_CONFIG) = 4;  // ACONFREG 0b00011,1,W,We Pointer of MMEMIN
-	*(ptrUART + AIP_DATAIN) = 0x00010068;//0x000101B2; // Set ptr CCONFREG 0 --- MODER_Register - 0x0001_01B2, 0x1b2 is 115200 baudrate, 0x068 is 115200 for 12MHz
-
+	*(ptrUART + AIP_DATAIN) = 0x000101B2;//0x000101B2; // Set ptr CCONFREG 0 --- MODER_Register - 0x0001_01B2, 0x1b2 is 115200 baudrate, 0x068 is 115200 for 12MHz
+	print("Configuring UART !\n");
 	*(ptrUART + AIP_CONFIG) = 1;  // AMEMIN,0b00011,1,W,We Pointer of MMEMIN
 	*(ptrUART + AIP_DATAIN) = 0x0; // Set ptr MEMIN 0, 
 	*(ptrUART + AIP_CONFIG) = 0;  // MMEMIN,0b00010,1,W,We Pointer of MMEMIN
 	*(ptrUART + AIP_DATAIN) = 0x00000048;//"H"; // Configuring GPIO as AF
 	*(ptrUART + AIP_START)  = 1;
-
-	*(ptrUART + AIP_CONFIG) = 1;  // AMEMIN,0b00011,1,W,We Pointer of MMEMIN
-	*(ptrUART + AIP_DATAIN) = 0x0; // Set ptr MEMIN 0, 
-	*(ptrUART + AIP_CONFIG) = 0;  // MMEMIN,0b00010,1,W,We Pointer of MMEMIN
-	*(ptrUART + AIP_DATAIN) = 0x0000004F;//"O"; // Configuring GPIO as AF
-	*(ptrUART + AIP_START)  = 1;
-
-	*(ptrUART + AIP_CONFIG) = 1;  // AMEMIN,0b00011,1,W,We Pointer of MMEMIN
-	*(ptrUART + AIP_DATAIN) = 0x0; // Set ptr MEMIN 0, 
-	*(ptrUART + AIP_CONFIG) = 0;  // MMEMIN,0b00010,1,W,We Pointer of MMEMIN
-	*(ptrUART + AIP_DATAIN) = 0x0000004C;//"L"; // Configuring GPIO as AF
-	*(ptrUART + AIP_START)  = 1;
-
-	*(ptrUART + AIP_CONFIG) = 1;  // AMEMIN,0b00011,1,W,We Pointer of MMEMIN
-	*(ptrUART + AIP_DATAIN) = 0x0; // Set ptr MEMIN 0, 
-	*(ptrUART + AIP_CONFIG) = 0;  // MMEMIN,0b00010,1,W,We Pointer of MMEMIN
-	*(ptrUART + AIP_DATAIN) = 0x00000041;//"A"; // Configuring GPIO as AF
-	*(ptrUART + AIP_START)  = 1;
-
-	*(ptrUART + AIP_CONFIG) = 30;  // ACONFREG 0b00011,1,W,We Pointer of MMEMIN
-	*(ptrUART + AIP_DATAIN) = 0x0; // Set ptr CCONFREG 0,
-   	uint32_t status = 0;
+	*(ptrUART + AIP_CONFIG) = 30;  // STATUS 
+	uint32_t status = 0;
+	print("Waiting TX_UART !\n");
+	/*while(status != 0x00000001){
 	status = *(ptrUART + AIP_DATAOUT);
-	print_hex(status,8);
+	}*/
+	status = 0;
+	print("Done TX_UART !\n");
+
+
+	print("Configuring UART !\n");
+	*(ptrUART + AIP_CONFIG) = 1;  // AMEMIN,0b00011,1,W,We Pointer of MMEMIN
+	*(ptrUART + AIP_DATAIN) = 0x0; // Set ptr MEMIN 0, 
+	*(ptrUART + AIP_CONFIG) = 0;  // MMEMIN,0b00010,1,W,We Pointer of MMEMIN
+	*(ptrUART + AIP_DATAIN) = 0x0000004A;//"H"; // Configuring GPIO as AF
+	*(ptrUART + AIP_START)  = 1;
+	*(ptrUART + AIP_CONFIG) = 30;  // STATUS 
+	print("Waiting TX_UART !\n");
+	/*while(status != 0x00000001){
+	status = *(ptrUART + AIP_DATAOUT);
+	}*/
+	status = 0;
+	print("Done TX_UART !\n");
+
+
+	print("Configuring UART !\n");
+	*(ptrUART + AIP_CONFIG) = 1;  // AMEMIN,0b00011,1,W,We Pointer of MMEMIN
+	*(ptrUART + AIP_DATAIN) = 0x0; // Set ptr MEMIN 0, 
+	*(ptrUART + AIP_CONFIG) = 0;  // MMEMIN,0b00010,1,W,We Pointer of MMEMIN
+	*(ptrUART + AIP_DATAIN) = 0x00000043;//"H"; // Configuring GPIO as AF
+	*(ptrUART + AIP_START)  = 1;
+	*(ptrUART + AIP_CONFIG) = 30;  // STATUS 
+	print("Waiting TX_UART !\n");
+	/*while(status != 0x00000001){
+	status = *(ptrUART + AIP_DATAOUT);
+	}*/
+	status = 0;
+	print("Done TX_UART !\n");
+
     //_----------------- AIP GPIO --------
     print("Reading IPID GPIO !\n");
 	*(ptrGPIO + AIP_CONFIG) = 5;

@@ -62,7 +62,7 @@ localparam  CYCLE		  = 'd20, // Define the clock work cycle in ns (user)
             $dumpvars(1, testbench_dummy_picosoc_Builder.uut.soc.picorv32_AIP.memory.mem[idx]);
         end
 
-		repeat (6) begin
+		repeat (8) begin
 			repeat (100000) @(posedge clk);
 			$display("+50000 cycles");
 		end
@@ -147,7 +147,7 @@ localparam  CYCLE		  = 'd20, // Define the clock work cycle in ns (user)
 		.ledg_n        (ledg_n     ),
 		.ser_rx        (ser_rx     ),
 		.ser_tx        (ser_tx     ),
-        .irq_5         (irq        ),
+        .irq_5         (1'b0        ),
 
         .GPIO_in	   (GPIO_in    ),
 		.GPIO_out	   (GPIO_out   ),
