@@ -19,6 +19,7 @@ IPDUMMY_SRC = ../mods/00001001/hdl/src/
 PWM_SRC = ../../Modules/AIP_PWM/PWM/
 GPIO_SRC = ../../Modules/AIP_GPIO/src/
 UART_SRC = ../mods/UART_Builder/Sources/
+AIPCOPROCESSOR = ../mods/aip-coprocessor/src/
 BASICBLOCKS = ../mods/basicblocks/
 MODULES= modules
 
@@ -104,6 +105,10 @@ synth_soc2: blinky.v $(BASICBLOCKS)memories/simple_dual_port_ram_single_clk.v $(
 	#-- Compilar
 	$(IVERILOG) $^ -o $(NAME)_tb.out
 
+synth_aipCop: $(BASICBLOCKS)memories/simple_dual_port_ram_single_clk.v $(BASICBLOCKS)ipm/*.v $(BASICBLOCKS)aip/aipModules.v $(BASICBLOCKS)sequential/upCounter.v $(BASICBLOCKS)sequential/shiftRegister.v testbench_Picorv32_aipCoprocessor.v native_aip.v picorv32_aipCoprocessor.v picorv32_AIP_IPcore.v $(AIPCOPROCESSOR)aipCoprocessor.v ID0000200F_aip.v simpleuart.v picorv32.v
+	#-- Compilar
+	$(IVERILOG) $^ -o $(NAME)_tb.out
+
 synth3:testbench_ez.v picorv32.v
 	$(IVERILOG) -o $@ $(subst C,-DCOMPRESSED_ISA,$(COMPRESSED_ISA)) $^
 	chmod -x $@
@@ -119,6 +124,10 @@ sim_soc:*.out
 	#-- Simular
 	vvp $(NAME)_tb.out
 	
+sim_aipcop:*.out
+	#-- Simular
+	vvp $(NAME)_tb.out
+
 picoSoC_DDS_tb.vvp: testbench_ipcore_AIP.v picorv32.v native_aip.v 
 	$(IVERILOG) -v -c $(MODULES).ys -o $@ $^
 	chmod -x $@
@@ -131,6 +140,10 @@ main_fw.elf: firmware/fpga_sections.lds firmware/print.c firmware/irqb.c firmwar
 	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -S firmware/irqb.c
 	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -S firmware/main.c
 
+main_aipcop.elf: firmware/fpga_sections.lds firmware/print.c firmware/irqb.c firmware/start.S firmware/main_aipcop.c
+	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -o firmware/main_aipcop.elf firmware/start.S firmware/irqb.c firmware/print.c firmware/main_aipcop.c
+	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -S firmware/irqb.c
+	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -S firmware/main_aipcop.c
 
 #main_fw.elf: firmware/fpga_sections.lds firmware/start.S firmware/irqb.s firmware/main.s
 #	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -o firmware/main_fw.elf firmware/start.S firmware/irqb.s firmware/main.s
@@ -147,6 +160,13 @@ main_fw.hex: main_fw.elf
 
 main_fw.bin: firmware/main_fw.elf
 	$(CROSS)objcopy -O binary firmware/main_fw.elf firmware/main_fw.bin
+
+main_aipcop.hex: main_aipcop.elf
+	$(CROSS)objcopy -O verilog firmware/main_aipcop.elf firmware/main_aipcop.hex
+
+main_aipcop.bin: firmware/main_aipcop.elf
+	$(CROSS)objcopy -O binary firmware/main_aipcop.elf firmware/main_aipcop.bin
+
 
 
 #firmware/main_fw.bin: firmware/main_fw.elf
@@ -167,6 +187,8 @@ main_fw.bin: firmware/main_fw.elf
 
 #main_fw.hex: firmware/main_fw.elf
 #	$(CROSS)objcopy -O verilog firmware/main_fw.elf firmware/main_fw.hex
+firmware/main_out.txt: main_aipcop.hex firmware/main_aipcop.hex firmware/hextoMEMaip.py
+	$(PYTHON) firmware/hextoMEMaip.py $@
 
 firmware/altera_out.txt: main_fw.hex firmware/main_fw.hex firmware/hextoMEM.py
 	$(PYTHON) firmware/hextoMEM.py $@

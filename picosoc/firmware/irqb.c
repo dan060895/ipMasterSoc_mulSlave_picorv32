@@ -11,6 +11,11 @@ uint32_t *irq(uint32_t *regs, uint32_t irqs)
 {
 	
 	// checking compressed isa q0 reg handling
+	if ((irqs & 7) != 0) {
+		print(" IRQ 7 -- Start Ipcore");
+		print("\n");
+	}
+
 	if ((irqs & 6) != 0) {
 		uint32_t pc = (regs[0] & 1) ? regs[0] - 3 : regs[0] - 4;
 		uint32_t instr = *(uint16_t*)pc;
@@ -76,11 +81,11 @@ uint32_t *irq(uint32_t *regs, uint32_t irqs)
 			}
 		}
 	}
-	print("Regs");
-	print_hex(regs[0], 8);
-	print("irqs");
+	//print("Regs");
+	//print_hex(regs[0], 8);
+	print("irqs: ");
     print_hex(irqs, 8);
-    
+    print("\n");
 	return regs;
 }
 
