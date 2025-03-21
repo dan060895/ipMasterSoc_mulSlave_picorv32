@@ -1,0 +1,100 @@
+
+CROSS=/opt/riscv/gc
+RISCV_GNU_TOOLCHAIN_INSTALL_PREFIX = /usr/local
+CFLAGS=
+ICARUS_SUFFIX =
+IVERILOG = iverilog$(ICARUS_SUFFIX)
+VVP = vvp$(ICARUS_SUFFIX)
+PYTHON = python3.11
+
+TEST_OBJS = $(addsuffix .o,$(basename $(wildcard tests/*.S)))
+FIRMWARE_OBJS = firmware/start.o firmware/irq.o firmware/print.o
+GCC_WARNS  = -Werror -Wall -Wextra -Wshadow -Wundef -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings
+GCC_WARNS += -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes -pedantic # -Wconversion
+TOOLCHAIN_PREFIX = $(RISCV_GNU_TOOLCHAIN_INSTALL_PREFIX)/bin/riscv32-unknown-elf-
+COMPRESSED_ISA = C
+
+NAME = PICORV32_Module
+IPDUMMY_SRC = ../mods/00001001/hdl/src/
+GPIO_SRC = ../../Modules/AIP_GPIO/src/
+AIPCOPROCESSOR = ../mods/aip-coprocessor/src/
+BASICBLOCKS = ../mods/basicblocks/
+MODULES= modules
+
+# ---- iCE40 IceBreaker Board ----
+
+
+synth_soc: $(BASICBLOCKS)memories/simple_dual_port_ram_single_clk.v $(BASICBLOCKS)ipm/*.v $(BASICBLOCKS)aip/aipModules.v $(BASICBLOCKS)sequential/upCounter.v $(BASICBLOCKS)sequential/shiftRegister.v $(IPDUMMY_SRC)*.v $(GPIO_SRC)*.v $(GPIO_SRC)ID0000100A_GPIO_aip/*.v testbench_TOP_SOC.v native_aip.v builder_picosoc.v picosoc_ip.v ID0000200F_aip.v simpleuart.v picorv32_AIP.v picorv32.v
+	#-- Compilar
+	$(IVERILOG) $^ -o $(NAME)_tb.out
+
+synth_aipCop: $(BASICBLOCKS)memories/simple_dual_port_ram_single_clk.v $(BASICBLOCKS)ipm/*.v $(BASICBLOCKS)aip/aipModules.v $(BASICBLOCKS)sequential/upCounter.v $(BASICBLOCKS)sequential/shiftRegister.v testbench_Picorv32_aipCoprocessor.v native_aip.v picorv32_aipCoprocessor.v picorv32_AIP_IPcore.v $(AIPCOPROCESSOR)aipCoprocessor.v ID0000200F_aip.v simpleuart.v picorv32.v
+	#-- Compilar
+	$(IVERILOG) $^ -o $(NAME)_tb.out
+
+sim_soc:*.out
+	#-- Simular
+	vvp $(NAME)_tb.out
+	
+sim_aipcop:*.out
+	#-- Simular
+	vvp $(NAME)_tb.out
+
+
+fpga_sections.lds: sections.lds
+	$(CROSS)cpp -P -DICEBREAKER -o $@ $^
+
+main_fw.elf: firmware/fpga_sections.lds firmware/print.c firmware/irqb.c firmware/start.S firmware/main.c
+	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -o firmware/main_fw.elf firmware/start.S firmware/irqb.c firmware/print.c firmware/main.c
+	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -S firmware/irqb.c
+	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -S firmware/main.c
+
+main_aipcop.elf: firmware/fpga_sections.lds firmware/print.c firmware/irqb.c firmware/start.S firmware/main_aipcop.c
+	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -o firmware/main_aipcop.elf firmware/start.S firmware/irqb.c firmware/print.c firmware/main_aipcop.c
+	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -S firmware/irqb.c
+	$(CROSS)gcc $(CFLAGS) -DICEBREAKER -mabi=ilp32 -march=rv32ic -Wl,-Bstatic,-T,firmware/fpga_sections.lds,--strip-debug -ffreestanding -nostdlib -S firmware/main_aipcop.c
+
+main_fw.hex: main_fw.elf
+	$(CROSS)objcopy -O verilog firmware/main_fw.elf firmware/main_fw.hex
+
+main_fw.bin: firmware/main_fw.elf
+	$(CROSS)objcopy -O binary firmware/main_fw.elf firmware/main_fw.bin
+
+main_aipcop.hex: main_aipcop.elf
+	$(CROSS)objcopy -O verilog firmware/main_aipcop.elf firmware/main_aipcop.hex
+
+main_aipcop.bin: firmware/main_aipcop.elf
+	$(CROSS)objcopy -O binary firmware/main_aipcop.elf firmware/main_aipcop.bin
+
+firmware/main_out.txt: main_aipcop.hex firmware/main_aipcop.hex firmware/hextoMEMaip.py
+	$(PYTHON) firmware/hextoMEMaip.py $@
+
+firmware/altera_out.txt: main_fw.hex firmware/main_fw.hex firmware/hextoMEM.py
+	$(PYTHON) firmware/hextoMEM.py $@
+
+runPICO: firmware/altera_out.txt 
+	$(PYTHON) firmware/main_IPM_PICORV32.py $@	
+
+        	
+# ---- ASIC Synthesis Tests ----
+
+cmos.log: spimemio.v simpleuart.v picosoc.v ../picorv32.v
+	yosys -l cmos.log -p 'synth -top picosoc; abc -g cmos2; opt -fast; stat' $^
+
+# ---- Clean ----
+# -- rm -f testbench.vvp testbench.vcd spiflash_tb.vvp spiflash_tb.vcd *.out main.s irq.s *.bit *.config *.json *.pnr.log *.svf
+# 	rm -f firmware/*.hex firmware/*.elf firmware/*.bin firmware/altera_out.txt
+clean:
+
+	rm -f testbench.vvp testbench.vcd spiflash_tb.vvp spiflash_tb.vcd *.out main.s irq.s *.config *.json *.pnr.log *.svf
+	rm -f firmware/*.hex firmware/*.elf firmware/*.bin firmware/altera_out.txt
+	rm -vrf $(FIRMWARE_OBJS) $(TEST_OBJS) check.smt2 check.vcd synth.v synth.log \
+                firmware/*.elf firmware/*.bin firmware/*.hex firmware/*.map \
+                testbench.vvp testbench_sp.vvp testbench_synth.vvp testbench_ez.vvp \
+                *.vvp *.vvp testbench.vcd *.trace \
+                testbench_verilator testbench_verilator_dir
+
+
+.PHONY: spiflash_tb clean
+.PHONY: hx8kprog hx8kprog_fw hx8ksim hx8ksynsim
+.PHONY: icebprog icebprog_fw icebsim icebsynsim

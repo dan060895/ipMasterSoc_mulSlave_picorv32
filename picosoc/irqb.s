@@ -1,6 +1,6 @@
 	.file	"irqb.c"
 	.option nopic
-	.attribute arch, "rv32i2p1_c2p0"
+	.attribute arch, "rv32i2p1_m2p0_c2p0"
 	.attribute unaligned_access, 0
 	.attribute stack_align, 16
 	.text
@@ -291,5 +291,5 @@ irq:
 	addi	sp,sp,64
 	jr	ra
 	.size	irq, .-irq
-	.ident	"GCC: (gdb4d81090) 14.2.1 20240902"
+	.ident	"GCC: (g04696df09) 14.2.0"
 	.section	.note.GNU-stack,"",@progbits

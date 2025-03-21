@@ -128,7 +128,7 @@ module picorv32_AIP (
 	
 
 	//parameter integer MEM_WORDS = 256;
-	parameter integer MEM_WORDS = 2048;
+	parameter integer MEM_WORDS = 16384;
 	parameter [31:0] STACKADDR = (4*MEM_WORDS/2);       // end of RAM memory
 	parameter [31:0] PROGADDR_RESET = 32'h 0010_0000; // 1 MB into flash
 	parameter [31:0] PROGADDR_IRQ = 32'h 0010_0010;
@@ -459,6 +459,7 @@ module picorv32_AIP (
 endmodule
 
 
+/*
 module picosoc_mem #(
         parameter integer WORDS = 256
 ) (
@@ -485,5 +486,64 @@ module picosoc_mem #(
                 if (wen[2]) mem[addr][23:16] <= wdata[23:16];
                 if (wen[3]) mem[addr][31:24] <= wdata[31:24];
         end
+
+endmodule
+*/
+module picosoc_mem #(
+	    parameter integer WORDS = 256
+) (
+        input         clk,
+        input   [3:0] wen,
+        input   [(CeilLog2(WORDS)-1):0]  addr,
+        input   [31:0] wdata,
+        output  [31:0] rdata
+);
+    reg [7:0] mem0 [0:WORDS-1];
+	reg [7:0] mem1 [0:WORDS-1];
+	reg [7:0] mem2 [0:WORDS-1];
+	reg [7:0] mem3 [0:WORDS-1];
+		  
+	reg  [(CeilLog2(WORDS)-1):0]  addr_reg0;
+    reg  [(CeilLog2(WORDS)-1):0]  addr_reg1;
+	reg  [(CeilLog2(WORDS)-1):0]  addr_reg2;
+	reg  [(CeilLog2(WORDS)-1):0]  addr_reg3;
+		  
+	always @(posedge clk) begin
+             addr_reg0 <= addr;   
+                if (wen[0]) 
+			mem0[addr] <= wdata[ 7: 0];
+        end
+		
+	always @(posedge clk) begin
+             addr_reg1 <= addr;   
+                if (wen[1]) 
+			mem1[addr] <= wdata[15: 8];
+        end
+		  
+	always @(posedge clk) begin
+             addr_reg2 <= addr;   
+                if (wen[2]) 
+			mem2[addr] <= wdata[23:16];
+        end
+		  
+	always @(posedge clk) begin
+             addr_reg3 <= addr;   
+                if (wen[3]) 
+			mem3[addr] <= wdata[31:24];
+        end
+		  
+	assign rdata = {mem3[addr_reg3],mem2[addr_reg2],mem1[addr_reg1],mem0[addr_reg0]};
+
+
+	function integer CeilLog2;
+  input integer data;
+  integer i, result;
+  	  begin
+	  result = 1; 
+		  for (i = 0; 2**i < data; i = i + 1)
+			result = i + 1; 
+			CeilLog2 = result;
+	  end 
+  endfunction
 
 endmodule

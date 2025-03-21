@@ -29,9 +29,6 @@ module builder_picosoc (
 	output ser_tx,
 	input ser_rx,
 
-	input 	uart_rx_in,   // AIP_UART module
-    output  uart_tx_out,  // AIP_UART module  
-
 	input irq_5,
 
 	output led1,
@@ -119,16 +116,13 @@ wire locked;
 		end
 	end
 
-	picosoc_ipdi soc (
+	picosoc_ip soc (
 		.clk           (clk_12Mhz   ),
 		.resetn        (resetn      ),
 
 		.ser_tx        (ser_tx      ),
 		.ser_rx        (ser_rx      ),
-    
-		.uart_rx_in	   (uart_rx_in  ), // AIP_UART module
-    	.uart_tx_out   (uart_tx_out ), // AIP_UART module  
-		
+    		
 		.irq_5         (irq_5       ),
 		.irq_6         (1'b0        ),
 		.irq_7         (1'b0        ),

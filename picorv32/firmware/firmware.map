@@ -1,0 +1,665 @@
+Se incluyó el miembro del archivo para satisfacer referencia por fichero (símbolo)
+
+/usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+                              firmware/multest.o (__divdi3)
+/usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+                              firmware/multest.o (__moddi3)
+/usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+                              firmware/multest.o (__udivdi3)
+/usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+                              firmware/multest.o (__umoddi3)
+/usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+                              firmware/multest.o (__mulsi3)
+/usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+                              firmware/multest.o (__muldi3)
+/usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+                              firmware/print.o (__udivsi3)
+/usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+                              /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o) (__clz_tab)
+
+Secciones de salida descartadas
+
+ .debug_info    0x00000000      0x7a8 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .debug_abbrev  0x00000000      0x1bf /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .debug_loclists
+                0x00000000      0x556 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .debug_aranges
+                0x00000000       0x20 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .debug_rnglists
+                0x00000000       0x8e /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .debug_line    0x00000000      0xa2e /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .debug_str     0x00000000      0x26d /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .debug_line_str
+                0x00000000       0xfc /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .debug_info    0x00000000      0x7f1 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .debug_abbrev  0x00000000      0x1ca /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .debug_loclists
+                0x00000000      0x479 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .debug_aranges
+                0x00000000       0x20 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .debug_rnglists
+                0x00000000       0x70 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .debug_line    0x00000000      0xa36 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .debug_str     0x00000000      0x26d /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .debug_line_str
+                0x00000000       0xfc /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .debug_info    0x00000000      0x776 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .debug_abbrev  0x00000000      0x1a6 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .debug_loclists
+                0x00000000      0x6ad /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .debug_aranges
+                0x00000000       0x20 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .debug_rnglists
+                0x00000000       0x8f /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .debug_line    0x00000000      0x97b /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .debug_str     0x00000000      0x26e /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .debug_line_str
+                0x00000000       0xfc /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .debug_info    0x00000000      0x7c3 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .debug_abbrev  0x00000000      0x1aa /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .debug_loclists
+                0x00000000      0x520 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .debug_aranges
+                0x00000000       0x20 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .debug_rnglists
+                0x00000000       0x56 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .debug_line    0x00000000      0x98d /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .debug_str     0x00000000      0x26e /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .debug_line_str
+                0x00000000       0xfc /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .debug_line    0x00000000       0x7a /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+ .debug_line_str
+                0x00000000       0x80 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+ .debug_info    0x00000000       0x31 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+ .debug_abbrev  0x00000000       0x28 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+ .debug_aranges
+                0x00000000       0x20 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+ .debug_str     0x00000000       0x97 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+ .debug_info    0x00000000      0x1fe /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .debug_abbrev  0x00000000      0x115 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .debug_loclists
+                0x00000000       0xa6 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .debug_aranges
+                0x00000000       0x20 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .debug_line    0x00000000      0x1f8 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .debug_str     0x00000000      0x229 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .debug_line_str
+                0x00000000      0x129 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .debug_frame   0x00000000       0x20 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .debug_line    0x00000000      0x153 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+ .debug_line_str
+                0x00000000       0x7d /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+ .debug_info    0x00000000       0x5d /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+ .debug_abbrev  0x00000000       0x28 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+ .debug_aranges
+                0x00000000       0x20 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+ .debug_str     0x00000000       0xc4 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+ .debug_info    0x00000000       0xed /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+ .debug_abbrev  0x00000000       0x70 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+ .debug_aranges
+                0x00000000       0x18 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+ .debug_line    0x00000000       0x3f /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+ .debug_str     0x00000000      0x1bb /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+ .debug_line_str
+                0x00000000       0xfc /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+
+Configuración de la Memoria
+
+Nombre           Origen             Longitud           Atributos
+mem              0x00000000         0x00018000
+*default*        0x00000000         0xffffffff
+
+Guión del enlazador y mapa de memoria
+
+
+.memory         0x00000000     0xc590
+                0x00000000                        . = 0x0
+ start*(.text)
+ *(.text)
+ .text          0x00000000      0x6bc firmware/start.o
+                0x00000424                lui_ret
+                0x00000430                auipc_ret
+                0x0000043c                j_ret
+                0x00000448                jal_ret
+                0x00000454                jalr_ret
+                0x00000460                beq_ret
+                0x0000046c                bne_ret
+                0x00000478                blt_ret
+                0x00000484                bge_ret
+                0x00000490                bltu_ret
+                0x0000049c                bgeu_ret
+                0x000004a8                lb_ret
+                0x000004b4                lh_ret
+                0x000004c0                lw_ret
+                0x000004cc                lbu_ret
+                0x000004d8                lhu_ret
+                0x000004e4                sb_ret
+                0x000004f0                sh_ret
+                0x000004fc                sw_ret
+                0x00000508                addi_ret
+                0x00000514                slti_ret
+                0x00000520                xori_ret
+                0x0000052c                ori_ret
+                0x00000538                andi_ret
+                0x00000544                slli_ret
+                0x00000550                srli_ret
+                0x0000055c                srai_ret
+                0x00000568                add_ret
+                0x00000574                sub_ret
+                0x00000580                sll_ret
+                0x0000058c                slt_ret
+                0x00000598                xor_ret
+                0x000005a4                srl_ret
+                0x000005b0                sra_ret
+                0x000005bc                or_ret
+                0x000005c8                and_ret
+                0x000005d4                mulh_ret
+                0x000005e0                mulhsu_ret
+                0x000005ec                mulhu_ret
+                0x000005f8                mul_ret
+                0x00000604                div_ret
+                0x00000610                divu_ret
+                0x0000061c                rem_ret
+                0x00000628                remu_ret
+                0x00000634                simple_ret
+                0x0000067e                hard_mul
+                0x00000684                hard_mulh
+                0x0000068a                hard_mulhsu
+                0x00000690                hard_mulhu
+                0x00000696                hard_div
+                0x0000069c                hard_divu
+                0x000006a2                hard_rem
+                0x000006a8                hard_remu
+ .text          0x000006bc      0x286 firmware/irq.o
+                0x000006bc                irq
+ .text          0x00000942       0x90 firmware/print.o
+                0x00000942                print_chr
+                0x0000094a                print_str
+                0x0000095c                print_dec
+                0x000009ac                print_hex
+ .text          0x000009d2        0x8 firmware/hello.o
+                0x000009d2                hello
+ .text          0x000009da      0x19a firmware/sieve.o
+                0x00000a76                sieve
+ .text          0x00000b74      0x2ba firmware/multest.o
+                0x00000b92                multest
+ .text          0x00000e2e      0x11c firmware/stats.o
+                0x00000ec2                stats
+ *fill*         0x00000f4a        0x2 
+ .text          0x00000f4c      0x25c tests/ori.o
+                0x00000f4c                ori
+ .text          0x000011a8      0x544 tests/or.o
+                0x000011a8                or
+ .text          0x000016ec      0x540 tests/xor.o
+                0x000016ec                xor
+ .text          0x00001c2c      0x4f8 tests/sh.o
+                0x00001c2c                sh
+ .text          0x00002124      0x244 tests/andi.o
+                0x00002124                andi
+ .text          0x00002368      0x540 tests/sub.o
+                0x00002368                sub
+ .text          0x000028a8      0x5ec tests/sll.o
+                0x000028a8                sll
+ .text          0x00002e94      0x33c tests/srai.o
+                0x00002e94                srai
+ .text          0x000031d0      0x2ec tests/lh.o
+                0x000031d0                lh
+ .text          0x000034bc      0x340 tests/blt.o
+                0x000034bc                blt
+ .text          0x000037fc      0x3a0 tests/bge.o
+                0x000037fc                bge
+ .text          0x00003b9c      0x15c tests/rem.o
+                0x00003b9c                rem
+ .text          0x00003cf8      0x548 tests/mul.o
+                0x00003cf8                mul
+ .text          0x00004240      0x2f8 tests/slti.o
+                0x00004240                slti
+ .text          0x00004538      0x164 tests/divu.o
+                0x00004538                divu
+ .text          0x0000469c      0x30c tests/lw.o
+                0x0000469c                lw
+ .text          0x000049a8      0x15c tests/div.o
+                0x000049a8                div
+ .text          0x00004b04      0x340 tests/beq.o
+                0x00004b04                beq
+ *fill*         0x00004e44        0x4 
+ .text          0x00004e48       0xcc tests/auipc.o
+                0x00004e48                auipc
+ .text          0x00004f14      0x504 tests/sw.o
+                0x00004f14                sw
+ .text          0x00005418      0x184 tests/jalr.o
+                0x00005418                jalr
+ .text          0x0000559c      0x344 tests/bne.o
+                0x0000559c                bne
+ .text          0x000058e0      0x3d8 tests/bgeu.o
+                0x000058e0                bgeu
+ .text          0x00005cb8      0x54c tests/mulhu.o
+                0x00005cb8                mulhu
+ .text          0x00006204      0x63c tests/srl.o
+                0x00006204                srl
+ .text          0x00006840      0x560 tests/add.o
+                0x00006840                add
+ .text          0x00006da0      0x548 tests/slt.o
+                0x00006da0                slt
+ .text          0x000072e8      0x2cc tests/lbu.o
+                0x000072e8                lbu
+ .text          0x000075b4      0x2cc tests/lb.o
+                0x000075b4                lb
+ .text          0x00007880       0xe0 tests/lui.o
+                0x00007880                lui
+ .text          0x00007960       0x54 tests/simple.o
+                0x00007960                simple
+ .text          0x000079b4      0x61c tests/sra.o
+                0x000079b4                sra
+ .text          0x00007fd0      0x160 tests/remu.o
+                0x00007fd0                remu
+ .text          0x00008130      0x268 tests/xori.o
+                0x00008130                xori
+ .text          0x00008398      0x54c tests/mulh.o
+                0x00008398                mulh
+ .text          0x000088e4      0x474 tests/sb.o
+                0x000088e4                sb
+ .text          0x00008d58       0xd8 tests/jal.o
+                0x00008d58                jal
+ .text          0x00008e30      0x30c tests/addi.o
+                0x00008e30                addi
+ .text          0x0000913c      0x300 tests/lhu.o
+                0x0000913c                lhu
+ .text          0x0000943c      0x338 tests/srli.o
+                0x0000943c                srli
+ .text          0x00009774      0x308 tests/slli.o
+                0x00009774                slli
+ .text          0x00009a7c       0xbc tests/j.o
+                0x00009a7c                j
+ .text          0x00009b38      0x538 tests/and.o
+                0x00009b38                and
+ .text          0x0000a070      0x378 tests/bltu.o
+                0x0000a070                bltu
+ .text          0x0000a3e8      0x54c tests/mulhsu.o
+                0x0000a3e8                mulhsu
+ .text          0x0000a934      0x390 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+                0x0000a934                __divdi3
+ .text          0x0000acc4      0x35e /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+                0x0000acc4                __moddi3
+ .text          0x0000b022      0x356 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+                0x0000b022                __udivdi3
+ .text          0x0000b378      0x31e /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+                0x0000b378                __umoddi3
+ *fill*         0x0000b696        0x2 
+ .text          0x0000b698       0x16 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+                0x0000b698                __mulsi3
+ .text          0x0000b6ae       0x4a /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+                0x0000b6ae                __muldi3
+ *fill*         0x0000b6f8        0x0 
+ .text          0x0000b6f8       0x7e /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+                0x0000b6f8                __divsi3
+                0x0000b700                __hidden___udivsi3
+                0x0000b700                __udivsi3
+                0x0000b72c                __umodsi3
+                0x0000b750                __modsi3
+ .text          0x0000b776        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+ *(*)
+ .data          0x0000b776        0x0 firmware/start.o
+ .bss           0x0000b776        0x0 firmware/start.o
+ .riscv.attributes
+                0x0000b776       0x2d firmware/start.o
+ .data          0x0000b7a3        0x0 firmware/irq.o
+ .bss           0x0000b7a3        0x0 firmware/irq.o
+ *fill*         0x0000b7a3        0x1 
+ .rodata.str1.4
+                0x0000b7a4      0x25a firmware/irq.o
+                                0x16b (tamaño antes de la relajación)
+ *fill*         0x0000b9fe        0x2 
+ .sbss          0x0000ba00        0xc firmware/irq.o
+ .comment       0x0000ba0c       0x19 firmware/irq.o
+                                 0x1a (tamaño antes de la relajación)
+ .note.GNU-stack
+                0x0000ba25        0x0 firmware/irq.o
+ .riscv.attributes
+                0x0000ba25       0x21 firmware/irq.o
+ .data          0x0000ba46        0x0 firmware/print.o
+ .bss           0x0000ba46        0x0 firmware/print.o
+ .rodata.str1.4
+                0x0000ba46       0x11 firmware/print.o
+ .comment       0x0000ba46       0x1a firmware/print.o
+ .note.GNU-stack
+                0x0000ba46        0x0 firmware/print.o
+ .riscv.attributes
+                0x0000ba46       0x21 firmware/print.o
+ .data          0x0000ba67        0x0 firmware/hello.o
+ .bss           0x0000ba67        0x0 firmware/hello.o
+ .rodata.str1.4
+                0x0000ba67        0xd firmware/hello.o
+ .comment       0x0000ba67       0x1a firmware/hello.o
+ .note.GNU-stack
+                0x0000ba67        0x0 firmware/hello.o
+ .riscv.attributes
+                0x0000ba67       0x21 firmware/hello.o
+ .data          0x0000ba88        0x0 firmware/sieve.o
+ .bss           0x0000ba88        0x0 firmware/sieve.o
+ .rodata.str1.4
+                0x0000ba88       0x40 firmware/sieve.o
+ .sbss          0x0000ba88        0xc firmware/sieve.o
+ .comment       0x0000ba94       0x1a firmware/sieve.o
+ .note.GNU-stack
+                0x0000ba94        0x0 firmware/sieve.o
+ .riscv.attributes
+                0x0000ba94       0x21 firmware/sieve.o
+ .data          0x0000bab5        0x0 firmware/multest.o
+ .bss           0x0000bab5        0x0 firmware/multest.o
+ .rodata.str1.4
+                0x0000bab5       0x58 firmware/multest.o
+ *fill*         0x0000bab5        0x3 
+ .sdata         0x0000bab8        0x4 firmware/multest.o
+ .comment       0x0000babc       0x1a firmware/multest.o
+ .note.GNU-stack
+                0x0000babc        0x0 firmware/multest.o
+ .riscv.attributes
+                0x0000babc       0x21 firmware/multest.o
+ .data          0x0000badd        0x0 firmware/stats.o
+ .bss           0x0000badd        0x0 firmware/stats.o
+ .rodata.str1.4
+                0x0000badd       0x3e firmware/stats.o
+ .comment       0x0000badd       0x1a firmware/stats.o
+ .note.GNU-stack
+                0x0000badd        0x0 firmware/stats.o
+ .riscv.attributes
+                0x0000badd       0x21 firmware/stats.o
+ *fill*         0x0000bafe        0x2 
+ .data          0x0000bb00        0x0 tests/ori.o
+ .bss           0x0000bb00        0x0 tests/ori.o
+ .riscv.attributes
+                0x0000bb00       0x28 tests/ori.o
+ .data          0x0000bb28        0x0 tests/or.o
+ .bss           0x0000bb28        0x0 tests/or.o
+ .riscv.attributes
+                0x0000bb28       0x28 tests/or.o
+ .data          0x0000bb50        0x0 tests/xor.o
+ .bss           0x0000bb50        0x0 tests/xor.o
+ .riscv.attributes
+                0x0000bb50       0x28 tests/xor.o
+ .data          0x0000bb78       0x14 tests/sh.o
+ .bss           0x0000bb8c        0x0 tests/sh.o
+ .riscv.attributes
+                0x0000bb8c       0x28 tests/sh.o
+ .data          0x0000bbb4        0x0 tests/andi.o
+ .bss           0x0000bbb4        0x0 tests/andi.o
+ .riscv.attributes
+                0x0000bbb4       0x28 tests/andi.o
+ .data          0x0000bbdc        0x0 tests/sub.o
+ .bss           0x0000bbdc        0x0 tests/sub.o
+ .riscv.attributes
+                0x0000bbdc       0x28 tests/sub.o
+ .data          0x0000bc04        0x0 tests/sll.o
+ .bss           0x0000bc04        0x0 tests/sll.o
+ .riscv.attributes
+                0x0000bc04       0x28 tests/sll.o
+ .data          0x0000bc2c        0x0 tests/srai.o
+ .bss           0x0000bc2c        0x0 tests/srai.o
+ .riscv.attributes
+                0x0000bc2c       0x28 tests/srai.o
+ .data          0x0000bc54        0x8 tests/lh.o
+ .bss           0x0000bc5c        0x0 tests/lh.o
+ .riscv.attributes
+                0x0000bc5c       0x28 tests/lh.o
+ .data          0x0000bc84        0x0 tests/blt.o
+ .bss           0x0000bc84        0x0 tests/blt.o
+ .riscv.attributes
+                0x0000bc84       0x28 tests/blt.o
+ .data          0x0000bcac        0x0 tests/bge.o
+ .bss           0x0000bcac        0x0 tests/bge.o
+ .riscv.attributes
+                0x0000bcac       0x28 tests/bge.o
+ .data          0x0000bcd4        0x0 tests/rem.o
+ .bss           0x0000bcd4        0x0 tests/rem.o
+ .riscv.attributes
+                0x0000bcd4       0x28 tests/rem.o
+ .data          0x0000bcfc        0x0 tests/mul.o
+ .bss           0x0000bcfc        0x0 tests/mul.o
+ .riscv.attributes
+                0x0000bcfc       0x28 tests/mul.o
+ .data          0x0000bd24        0x0 tests/slti.o
+ .bss           0x0000bd24        0x0 tests/slti.o
+ .riscv.attributes
+                0x0000bd24       0x28 tests/slti.o
+ .data          0x0000bd4c        0x0 tests/divu.o
+ .bss           0x0000bd4c        0x0 tests/divu.o
+ .riscv.attributes
+                0x0000bd4c       0x28 tests/divu.o
+ .data          0x0000bd74       0x10 tests/lw.o
+ .bss           0x0000bd84        0x0 tests/lw.o
+ .riscv.attributes
+                0x0000bd84       0x28 tests/lw.o
+ .data          0x0000bdac        0x0 tests/div.o
+ .bss           0x0000bdac        0x0 tests/div.o
+ .riscv.attributes
+                0x0000bdac       0x28 tests/div.o
+ .data          0x0000bdd4        0x0 tests/beq.o
+ .bss           0x0000bdd4        0x0 tests/beq.o
+ .riscv.attributes
+                0x0000bdd4       0x28 tests/beq.o
+ .data          0x0000bdfc        0x0 tests/auipc.o
+ .bss           0x0000bdfc        0x0 tests/auipc.o
+ .riscv.attributes
+                0x0000bdfc       0x28 tests/auipc.o
+ .data          0x0000be24       0x28 tests/sw.o
+ .bss           0x0000be4c        0x0 tests/sw.o
+ .riscv.attributes
+                0x0000be4c       0x28 tests/sw.o
+ .data          0x0000be74        0x0 tests/jalr.o
+ .bss           0x0000be74        0x0 tests/jalr.o
+ .riscv.attributes
+                0x0000be74       0x28 tests/jalr.o
+ .data          0x0000be9c        0x0 tests/bne.o
+ .bss           0x0000be9c        0x0 tests/bne.o
+ .riscv.attributes
+                0x0000be9c       0x28 tests/bne.o
+ .data          0x0000bec4        0x0 tests/bgeu.o
+ .bss           0x0000bec4        0x0 tests/bgeu.o
+ .riscv.attributes
+                0x0000bec4       0x28 tests/bgeu.o
+ .data          0x0000beec        0x0 tests/mulhu.o
+ .bss           0x0000beec        0x0 tests/mulhu.o
+ .riscv.attributes
+                0x0000beec       0x28 tests/mulhu.o
+ .data          0x0000bf14        0x0 tests/srl.o
+ .bss           0x0000bf14        0x0 tests/srl.o
+ .riscv.attributes
+                0x0000bf14       0x28 tests/srl.o
+ .data          0x0000bf3c        0x0 tests/add.o
+ .bss           0x0000bf3c        0x0 tests/add.o
+ .riscv.attributes
+                0x0000bf3c       0x28 tests/add.o
+ .data          0x0000bf64        0x0 tests/slt.o
+ .bss           0x0000bf64        0x0 tests/slt.o
+ .riscv.attributes
+                0x0000bf64       0x28 tests/slt.o
+ .data          0x0000bf8c        0x4 tests/lbu.o
+ .bss           0x0000bf90        0x0 tests/lbu.o
+ .riscv.attributes
+                0x0000bf90       0x28 tests/lbu.o
+ .data          0x0000bfb8        0x4 tests/lb.o
+ .bss           0x0000bfbc        0x0 tests/lb.o
+ .riscv.attributes
+                0x0000bfbc       0x28 tests/lb.o
+ .data          0x0000bfe4        0x0 tests/lui.o
+ .bss           0x0000bfe4        0x0 tests/lui.o
+ .riscv.attributes
+                0x0000bfe4       0x28 tests/lui.o
+ .data          0x0000c00c        0x0 tests/simple.o
+ .bss           0x0000c00c        0x0 tests/simple.o
+ .riscv.attributes
+                0x0000c00c       0x28 tests/simple.o
+ .data          0x0000c034        0x0 tests/sra.o
+ .bss           0x0000c034        0x0 tests/sra.o
+ .riscv.attributes
+                0x0000c034       0x28 tests/sra.o
+ .data          0x0000c05c        0x0 tests/remu.o
+ .bss           0x0000c05c        0x0 tests/remu.o
+ .riscv.attributes
+                0x0000c05c       0x28 tests/remu.o
+ .data          0x0000c084        0x0 tests/xori.o
+ .bss           0x0000c084        0x0 tests/xori.o
+ .riscv.attributes
+                0x0000c084       0x28 tests/xori.o
+ .data          0x0000c0ac        0x0 tests/mulh.o
+ .bss           0x0000c0ac        0x0 tests/mulh.o
+ .riscv.attributes
+                0x0000c0ac       0x28 tests/mulh.o
+ .data          0x0000c0d4        0xa tests/sb.o
+ .bss           0x0000c0de        0x0 tests/sb.o
+ .riscv.attributes
+                0x0000c0de       0x28 tests/sb.o
+ *fill*         0x0000c106        0x2 
+ .data          0x0000c108        0x0 tests/jal.o
+ .bss           0x0000c108        0x0 tests/jal.o
+ .riscv.attributes
+                0x0000c108       0x28 tests/jal.o
+ .data          0x0000c130        0x0 tests/addi.o
+ .bss           0x0000c130        0x0 tests/addi.o
+ .riscv.attributes
+                0x0000c130       0x28 tests/addi.o
+ .data          0x0000c158        0x8 tests/lhu.o
+ .bss           0x0000c160        0x0 tests/lhu.o
+ .riscv.attributes
+                0x0000c160       0x28 tests/lhu.o
+ .data          0x0000c188        0x0 tests/srli.o
+ .bss           0x0000c188        0x0 tests/srli.o
+ .riscv.attributes
+                0x0000c188       0x28 tests/srli.o
+ .data          0x0000c1b0        0x0 tests/slli.o
+ .bss           0x0000c1b0        0x0 tests/slli.o
+ .riscv.attributes
+                0x0000c1b0       0x28 tests/slli.o
+ .data          0x0000c1d8        0x0 tests/j.o
+ .bss           0x0000c1d8        0x0 tests/j.o
+ .riscv.attributes
+                0x0000c1d8       0x28 tests/j.o
+ .data          0x0000c200        0x0 tests/and.o
+ .bss           0x0000c200        0x0 tests/and.o
+ .riscv.attributes
+                0x0000c200       0x28 tests/and.o
+ .data          0x0000c228        0x0 tests/bltu.o
+ .bss           0x0000c228        0x0 tests/bltu.o
+ .riscv.attributes
+                0x0000c228       0x28 tests/bltu.o
+ .data          0x0000c250        0x0 tests/mulhsu.o
+ .bss           0x0000c250        0x0 tests/mulhsu.o
+ .riscv.attributes
+                0x0000c250       0x28 tests/mulhsu.o
+ .data          0x0000c278        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .bss           0x0000c278        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .comment       0x0000c278       0x1a /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .note.GNU-stack
+                0x0000c278        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .eh_frame      0x0000c278       0x28 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .riscv.attributes
+                0x0000c2a0       0x2f /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_divdi3.o)
+ .data          0x0000c2cf        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .bss           0x0000c2cf        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .comment       0x0000c2cf       0x1a /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .note.GNU-stack
+                0x0000c2cf        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ *fill*         0x0000c2cf        0x1 
+ .eh_frame      0x0000c2d0       0x28 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .riscv.attributes
+                0x0000c2f8       0x2f /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_moddi3.o)
+ .data          0x0000c327        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .bss           0x0000c327        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .comment       0x0000c327       0x1a /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .note.GNU-stack
+                0x0000c327        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ *fill*         0x0000c327        0x1 
+ .eh_frame      0x0000c328       0x28 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .riscv.attributes
+                0x0000c350       0x2f /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_udivdi3.o)
+ .data          0x0000c37f        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .bss           0x0000c37f        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .comment       0x0000c37f       0x1a /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .note.GNU-stack
+                0x0000c37f        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ *fill*         0x0000c37f        0x1 
+ .eh_frame      0x0000c380       0x28 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .riscv.attributes
+                0x0000c3a8       0x2f /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_umoddi3.o)
+ .data          0x0000c3d7        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+ .bss           0x0000c3d7        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+ .riscv.attributes
+                0x0000c3d7       0x2d /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(muldi3.o)
+ .data          0x0000c404        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .bss           0x0000c404        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .comment       0x0000c404       0x1a /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .note.GNU-stack
+                0x0000c404        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .riscv.attributes
+                0x0000c404       0x2f /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(multi3.o)
+ .data          0x0000c433        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+ .bss           0x0000c433        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+ .riscv.attributes
+                0x0000c433       0x2d /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(div.o)
+ .data          0x0000c460        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+ .bss           0x0000c460        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+ .rodata        0x0000c460      0x100 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+                0x0000c460                __clz_tab
+ .comment       0x0000c560       0x1a /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+ .note.GNU-stack
+                0x0000c560        0x0 /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+ .riscv.attributes
+                0x0000c560       0x2f /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a(_clz.o)
+                0x0000c58f                        end = .
+                0x0000c590                        . = ALIGN (0x4)
+ *fill*         0x0000c58f        0x1 
+LOAD firmware/start.o
+LOAD firmware/irq.o
+LOAD firmware/print.o
+LOAD firmware/hello.o
+LOAD firmware/sieve.o
+LOAD firmware/multest.o
+LOAD firmware/stats.o
+LOAD tests/ori.o
+LOAD tests/or.o
+LOAD tests/xor.o
+LOAD tests/sh.o
+LOAD tests/andi.o
+LOAD tests/sub.o
+LOAD tests/sll.o
+LOAD tests/srai.o
+LOAD tests/lh.o
+LOAD tests/blt.o
+LOAD tests/bge.o
+LOAD tests/rem.o
+LOAD tests/mul.o
+LOAD tests/slti.o
+LOAD tests/divu.o
+LOAD tests/lw.o
+LOAD tests/div.o
+LOAD tests/beq.o
+LOAD tests/auipc.o
+LOAD tests/sw.o
+LOAD tests/jalr.o
+LOAD tests/bne.o
+LOAD tests/bgeu.o
+LOAD tests/mulhu.o
+LOAD tests/srl.o
+LOAD tests/add.o
+LOAD tests/slt.o
+LOAD tests/lbu.o
+LOAD tests/lb.o
+LOAD tests/lui.o
+LOAD tests/simple.o
+LOAD tests/sra.o
+LOAD tests/remu.o
+LOAD tests/xori.o
+LOAD tests/mulh.o
+LOAD tests/sb.o
+LOAD tests/jal.o
+LOAD tests/addi.o
+LOAD tests/lhu.o
+LOAD tests/srli.o
+LOAD tests/slli.o
+LOAD tests/j.o
+LOAD tests/and.o
+LOAD tests/bltu.o
+LOAD tests/mulhsu.o
+LOAD /usr/local/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a
+OUTPUT(firmware/firmware.elf elf32-littleriscv)

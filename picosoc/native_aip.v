@@ -19,7 +19,7 @@ module native_aip (
     output [4:0]    o_aip_config,
     output reg 	    o_aip_read,
     output reg 	    o_aip_write,
-    output 	    o_aip_start,
+    output 	        o_aip_start,
     input           i_aip_int,
 
     output          o_core_int

@@ -208,7 +208,7 @@ module ID0000200F_aipModules #(
   localparam STATUS_WIDTH = 8;
 
   `ifdef ID0000200F_MEM_IN
-  localparam [(`ID0000200F_MEM_IN*MEM_ADDR_MAX_WIDTH)-1:0] MEM_IN_ADDR_WIDTH = { 16'd11 };
+  localparam [(`ID0000200F_MEM_IN*MEM_ADDR_MAX_WIDTH)-1:0] MEM_IN_ADDR_WIDTH = { 16'd14 };
 
   localparam [((`ID0000200F_MEM_IN*2)*CONFIG_WIDTH)-1:0] CONFIG_MEM_IN = { 5'b00001, 5'b00000 };
   `endif
