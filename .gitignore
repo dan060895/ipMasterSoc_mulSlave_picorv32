@@ -1,6 +1,5 @@
 *.vcd
 *.out
-mods/
 picosoc/*.bit
 picosoc/*.config
 picosoc/*.json

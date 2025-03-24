@@ -1,0 +1,1 @@
+TODO: Hay que revisar los limites entre la memoria ram y este archivo para inferir registros o memoria del FPGA
