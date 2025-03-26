@@ -40,7 +40,7 @@ localparam  CYCLE		  = 'd20, // Define the clock work cycle in ns (user)
             //------------------------------------------------------------
             //..................PARAMETERS DEFINED BY THE USER............
             //------------------------------------------------------------
-            SIZE_MEM0    = 'd2048, //Size of the memories of the IP PICORV32
+            SIZE_MEM0    = 'd4096, //Size of the memories of the IP PICORV32
             INT_BIT_DONE = 'd0; //Bit corresponding to the Int Done flag.
 
     reg clk, rst, en_s;

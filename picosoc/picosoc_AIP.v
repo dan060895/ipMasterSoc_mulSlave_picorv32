@@ -52,11 +52,10 @@ module picosoc_AIP (
 	//parameter [31:0] PROGADDR_RESET = 32'h 0000_0000;
 	//parameter [31:0] PROGADDR_IRQ = 32'h 0000_0010;
 	//parameter [31:0] STACKADDR = 32'h ffff_ffff;
-
 	parameter [0:0] ENABLE_COMPRESSED = 1;
 	
 
-	parameter integer MEM_WORDS = 32768;
+	parameter integer MEM_WORDS = 2048;
 	parameter [31:0] STACKADDR = (4*MEM_WORDS/2);       // end of RAM memory
 	parameter [31:0] PROGADDR_RESET = 32'h 0010_0000; // 1 MB into flash
 	parameter [31:0] PROGADDR_IRQ = 32'h 0010_0010;

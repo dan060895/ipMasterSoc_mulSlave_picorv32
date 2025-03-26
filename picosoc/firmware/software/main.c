@@ -21,8 +21,8 @@
 #define AIP_CONFIG   2
 #define AIP_START    3
 
-#define DUMMY_MEM_SIZE 8
-#define DUMMY_PORT 0
+#define DUMMY_MEM_SIZE 16
+#define DUMMY_PORT (void *)0x80000100
 
 
 int strcmpe(const char *s1, const char *s2) ;
@@ -65,7 +65,7 @@ void main() {
     }
 
     ID00001001_writeData(DUMMY_PORT, dataFlits, DUMMY_MEM_SIZE, 0);
-#define DEBUG_DELAY 1
+#define DEBUG_DELAY 0
 
 #if DEBUG_DELAY
     ID00001001_enableDelay(DUMMY_PORT, 5000);
@@ -73,9 +73,8 @@ void main() {
     ID00001001_getStatus(DUMMY_PORT, &dataFlit);
 #endif 
 
-print("TEST\n");
     ID00001001_startIP(DUMMY_PORT);
-print("TEST\n");
+
     ID00001001_getStatus(DUMMY_PORT, &dataFlit);
 
     ID00001001_waitDone(DUMMY_PORT);

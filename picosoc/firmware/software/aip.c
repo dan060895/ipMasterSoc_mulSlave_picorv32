@@ -34,15 +34,15 @@ static const uint32_t AIP_PORT_BASE[] =
 
 static aip_portConfig_t aip_portConfigs [AIP_PORTS];
 
-static uint8_t aip_aipRead (void *baseAddr, uint8_t config, uint32_t *data, uint16_t size);
+static uint8_t aip_aipRead (void *baseAddr, uint32_t config, uint32_t *data, uint32_t size);
 
-static uint8_t aip_aipWrite (void *baseAddr, uint8_t config, uint32_t *data, uint16_t size);
+static uint8_t aip_aipWrite (void *baseAddr, uint32_t config, uint32_t *data, uint32_t size);
 
 static uint8_t aip_aipStart (void *baseAddr);
 
-static uint8_t aip_getPortAdders (uint8_t aipPort, uint32_t *aipBaseAddr);
-
-int8_t aip_init (uint8_t aipPort, aip_config_t *aip_configs, uint8_t configAmount)
+//static uint32_t  aip_getPortAdders (void *aipBaseAddr, uint32_t *aipBaseAddr);
+/*
+int8_t aip_init (void *aipBaseAddr, aip_config_t *aip_configs, uint32_t configAmount)
 {
     aip_portConfigs[aipPort].amount = configAmount;
 
@@ -50,174 +50,199 @@ int8_t aip_init (uint8_t aipPort, aip_config_t *aip_configs, uint8_t configAmoun
 
     return 0;
 }
-
-int8_t aip_readMem (uint8_t aipPort, uint8_t configMem, uint32_t* dataRead, uint16_t amountData, uint32_t offset)
+*/
+int8_t aip_readMem (void *aipBaseAddr, uint32_t configMem, uint32_t* dataRead, uint32_t amountData, uint32_t offset)
 {
-    uint32_t aipBaseAddr = 0;
+    //uint32_t aipBaseAddr = 0;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+    // aip_getPortAdders(aipPort, &aipBaseAddr);
 
     /* set addrs */
-    aip_aipWrite((void *)aipBaseAddr, configMem+1, &offset, 1);
+    aip_aipWrite(aipBaseAddr, configMem+1, &offset, 1);
 
     /* write data */
-    aip_aipRead((void *)aipBaseAddr, configMem, dataRead, amountData);
+    aip_aipRead(aipBaseAddr, configMem, dataRead, amountData);
 
     return 0;
 }
 
-int8_t aip_writeMem (uint8_t aipPort, uint8_t configMem, uint32_t* dataWrite, uint16_t amountData, uint32_t offset)
+int8_t aip_writeMem (void *aipBaseAddr, uint32_t configMem, uint32_t* dataWrite, uint32_t amountData, uint32_t offset)
 {
-    uint32_t aipBaseAddr = 0;
+    //uint32_t aipBaseAddr = 0;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+    // aip_getPortAdders(aipPort, &aipBaseAddr);
 
     /* set addrs */
-    aip_aipWrite((void *)aipBaseAddr, configMem+1, &offset, 1);
+    aip_aipWrite(aipBaseAddr, configMem+1, &offset, 1);
 
     /* write data */
-    aip_aipWrite((void *)aipBaseAddr, configMem, dataWrite, amountData);
+    aip_aipWrite(aipBaseAddr, configMem, dataWrite, amountData);
 
     return 0;
 }
 
-int8_t aip_writeConfReg (uint8_t aipPort, uint8_t configConfReg, uint32_t* dataWrite, uint16_t amountData, uint32_t offset)
+int8_t aip_writeConfReg (void *aipBaseAddr, uint32_t configConfReg, uint32_t* dataWrite, uint32_t amountData, uint32_t offset)
 {
-    uint32_t aipBaseAddr = 0;
+    //uint32_t aipBaseAddr = 0;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+    // aip_getPortAdders(aipPort, &aipBaseAddr);
 
     /* set addrs */
-    aip_aipWrite((void *)aipBaseAddr, configConfReg+1, &offset, 1);
+    aip_aipWrite(aipBaseAddr, configConfReg+1, &offset, 1);
 
     /* write data */
-    aip_aipWrite((void *)aipBaseAddr, configConfReg, dataWrite, amountData);
+    aip_aipWrite(aipBaseAddr, configConfReg, dataWrite, amountData);
 
     return 0;
 }
 
-int8_t aip_start (uint8_t aipPort)
+int8_t aip_start (void *aipBaseAddr)
 {
-    uint32_t aipBaseAddr = 0;
+	/*
+		alt_u64 elapsed_time, start, end, snap_0, snap_1, snap_2, snap_3;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+	    IOWR_ALTERA_AVALON_TIMER_SNAP_0 (TIMER_0_BASE, 0);
+	    snap_0 = IORD(TIMER_0_BASE, 6) & ALTERA_AVALON_TIMER_SNAP_0_MSK;
+	    snap_1 = IORD(TIMER_0_BASE, 7) & ALTERA_AVALON_TIMER_SNAP_0_MSK;
+	    snap_2 = IORD(TIMER_0_BASE, 8) & ALTERA_AVALON_TIMER_SNAP_0_MSK;
+	    snap_3 = IORD(TIMER_0_BASE, 9) & ALTERA_AVALON_TIMER_SNAP_0_MSK;
 
-    aip_aipStart((void *)aipBaseAddr);
+	    start = (0xFFFFFFFFFFFFFFFFULL - ( (snap_3 << 48) | (snap_2 << 32) | (snap_1 << 16) | (snap_0) ));
+	*/
+    //uint32_t aipBaseAddr = 0;
+
+    // aip_getPortAdders(aipPort, &aipBaseAddr);
+
+    aip_aipStart(aipBaseAddr);
+
+    /*
+        IOWR_ALTERA_AVALON_TIMER_SNAP_0 (TIMER_0_BASE, 0);
+        snap_0 = IORD(TIMER_0_BASE, 6) & ALTERA_AVALON_TIMER_SNAP_0_MSK;
+        snap_1 = IORD(TIMER_0_BASE, 7) & ALTERA_AVALON_TIMER_SNAP_0_MSK;
+        snap_2 = IORD(TIMER_0_BASE, 8) & ALTERA_AVALON_TIMER_SNAP_0_MSK;
+        snap_3 = IORD(TIMER_0_BASE, 9) & ALTERA_AVALON_TIMER_SNAP_0_MSK;
+
+        end = (0xFFFFFFFFFFFFFFFFULL - ( (snap_3 << 48) | (snap_2 << 32) | (snap_1 << 16) | (snap_0) ));
+        elapsed_time = end - start;
+        printf("Tiempo de ejecucion aip_start: %llu ticks\n", elapsed_time);
+    */
 
     return 0;
 }
 
-int8_t aip_getID (uint8_t aipPort, uint32_t *id)
+int8_t aip_getID (void *aipBaseAddr, uint32_t *id)
 {
-    uint32_t aipBaseAddr = 0;
+    ////uint32_t aipBaseAddr = 0;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+    //// aip_getPortAdders(aipPort, &aipBaseAddr);
 
-    aip_aipRead((void *)aipBaseAddr, AIP_IPID, id, 1);
+    aip_aipRead(aipBaseAddr, AIP_IPID, id, 1);
 
     return 0;
 }
 
-int8_t aip_getStatus (uint8_t aipPort, uint32_t* status)
+int8_t aip_getStatus (void *aipBaseAddr, uint32_t* status)
 {
-    uint32_t aipBaseAddr = 0;
+    //uint32_t aipBaseAddr = 0;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+    // aip_getPortAdders(aipPort, &aipBaseAddr);
 
-    aip_aipRead((void *)aipBaseAddr, AIP_STATUS, status, 1);
+    aip_aipRead(aipBaseAddr, AIP_STATUS, status, 1);
 
     return 0;
 }
 
-int8_t aip_enableINT (uint8_t aipPort, uint8_t idxInt)
+int8_t aip_enableINT (void *aipBaseAddr, uint32_t idxInt)
 {
     uint32_t status = 0;
 
-    uint32_t aipBaseAddr = 0;
+    //uint32_t aipBaseAddr = 0;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+    // aip_getPortAdders(aipPort, &aipBaseAddr);
 
-    aip_aipRead ((void *)aipBaseAddr, AIP_STATUS, &status, 1);
+    aip_aipRead (aipBaseAddr, AIP_STATUS, &status, 1);
 
     status &= AIP_STATUS_MASK_MASK;
 
     status |= (1 << (idxInt+AIP_STATUS_SHIFT_MASK));
 
-    aip_aipWrite((void *)aipBaseAddr, AIP_STATUS, &status, 1);
+    aip_aipWrite(aipBaseAddr, AIP_STATUS, &status, 1);
 
     return 0;
 }
 
-int8_t aip_disableINT (uint8_t aipPort, uint8_t idxInt)
+int8_t aip_disableINT (void *aipBaseAddr, uint32_t idxInt)
 {
     uint32_t status = 0;
 
-    uint32_t aipBaseAddr = 0;
+    //uint32_t aipBaseAddr = 0;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+    // aip_getPortAdders(aipPort, &aipBaseAddr);
 
-    aip_aipRead ((void *)aipBaseAddr, AIP_STATUS, &status, 1);
+    aip_aipRead (aipBaseAddr, AIP_STATUS, &status, 1);
 
     status &= AIP_STATUS_MASK_MASK;
 
     status &= ~(uint32_t)(1 << (idxInt+AIP_STATUS_SHIFT_MASK));
 
-    aip_aipWrite((void *)aipBaseAddr, AIP_STATUS, &status, 1);
+    aip_aipWrite(aipBaseAddr, AIP_STATUS, &status, 1);
 
     return 0;
 }
 
-int8_t aip_clearINT (uint8_t aipPort, uint8_t idxInt)
+int8_t aip_clearINT (void *aipBaseAddr, uint32_t idxInt)
 {
     uint32_t status = 0;
 
-    uint32_t aipBaseAddr = 0;
+    //uint32_t aipBaseAddr = 0;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+    // aip_getPortAdders(aipPort, &aipBaseAddr);
 
-    aip_aipRead((void *)aipBaseAddr, AIP_STATUS, &status, 1);
+    aip_aipRead(aipBaseAddr, AIP_STATUS, &status, 1);
 
     status = (status & (AIP_STATUS_MASK_NU | AIP_STATUS_MASK_MASK | AIP_STATUS_MASK_NOTIFICATION)) | (uint32_t)(1 << idxInt);
 
-    aip_aipWrite((void *)aipBaseAddr, AIP_STATUS, &status, 1);
+    aip_aipWrite(aipBaseAddr, AIP_STATUS, &status, 1);
 
     return 0;
 }
 
-int8_t aip_getINT (uint8_t aipPort, uint8_t* intVector)
+int8_t aip_getINT (void *aipBaseAddr, uint32_t* intVector)
 {
     uint32_t status = 0;
 
-    uint32_t aipBaseAddr = 0;
+    //uint32_t aipBaseAddr = 0;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+    // aip_getPortAdders(aipPort, &aipBaseAddr);
 
-    aip_aipRead ((void *)aipBaseAddr, AIP_STATUS, &status, 1);
+    aip_aipRead (aipBaseAddr, AIP_STATUS, &status, 1);
 
-    *intVector = (uint8_t)(status & AIP_STATUS_MASK_INT);
+    *intVector = (uint32_t)(status & AIP_STATUS_MASK_INT);
 
     return 0;
 }
 
-int8_t aip_getNotifications(uint8_t aipPort, uint8_t* notificationsVector)
+int8_t aip_getNotifications(void *aipBaseAddr, uint32_t* notificationsVector)
 {
     uint32_t status = 0;
 
-    uint32_t aipBaseAddr = 0;
+    //uint32_t aipBaseAddr = 0;
 
-    aip_getPortAdders(aipPort, &aipBaseAddr);
+    // aip_getPortAdders(aipPort, &aipBaseAddr);
 
-    aip_aipRead ((void *)aipBaseAddr, AIP_STATUS, &status, 1);
+    aip_aipRead (aipBaseAddr, AIP_STATUS, &status, 1);
 
-    *notificationsVector = (uint8_t)((status & AIP_STATUS_MASK_NOTIFICATION) >> AIP_STATUS_SHIFT_NOTIFICATION);
+    *notificationsVector = (uint32_t)((status & AIP_STATUS_MASK_NOTIFICATION) >> AIP_STATUS_SHIFT_NOTIFICATION);
 
     return 0;
 }
 
-static uint8_t aip_aipRead (void *baseAddr, uint8_t config, uint32_t *data, uint16_t size )
+
+
+static uint8_t aip_aipRead (void *aipBaseAddr, uint32_t config, uint32_t *data, uint32_t size )
 {
 
-    volatile uint32_t *reg32 = (volatile uint32_t *)baseAddr; 
+    volatile uint32_t *reg32 = (volatile uint32_t *)aipBaseAddr; 
 
     reg32[AIP_CONFIG] = config; 
 
@@ -229,10 +254,10 @@ static uint8_t aip_aipRead (void *baseAddr, uint8_t config, uint32_t *data, uint
 	return 0 ;
 };
 
-static uint8_t aip_aipWrite (void *baseAddr, uint8_t config, uint32_t *data, uint16_t size)
+static uint8_t aip_aipWrite (void *aipBaseAddr, uint32_t config, uint32_t *data, uint32_t size)
 {
 
-    volatile uint32_t *reg32 = (volatile uint32_t *)baseAddr; 
+    volatile uint32_t *reg32 = (volatile uint32_t *)aipBaseAddr; 
 
     reg32[AIP_CONFIG] = config;  
 		
@@ -243,19 +268,10 @@ static uint8_t aip_aipWrite (void *baseAddr, uint8_t config, uint32_t *data, uin
 	return 0 ;
 };
 
-static uint8_t aip_aipStart (void *baseAddr)
+static uint8_t aip_aipStart (void *aipBaseAddr)
 {
-    volatile uint32_t *reg32 = (volatile uint32_t *)baseAddr; 
+    volatile uint32_t *reg32 = (volatile uint32_t *)aipBaseAddr; 
 
     reg32[AIP_START] = 0x1;  
-
 	return 0 ;
 };
-
-static uint8_t aip_getPortAdders (uint8_t aipPort, uint32_t *aipBaseAddr)
-{
-    *aipBaseAddr = AIP_PORT_BASE[aipPort];
-
-    return 0;
-}
-

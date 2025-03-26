@@ -33,29 +33,31 @@ typedef struct aip_regs
     uint32_t aip_start;
 } aip_regs_t;
 
-int8_t aip_init (uint8_t aipPort, aip_config_t *aip_configs, uint8_t configAmount);
+int8_t aip_init (void *aipBaseAddr, aip_config_t *aip_configs, uint32_t configAmount);
 
-int8_t aip_readMem (uint8_t aipPort, uint8_t configMem, uint32_t* dataRead, uint16_t amountData, uint32_t offset);
+int8_t aip_readMem (void *aipBaseAddr, uint32_t configMem, uint32_t* dataRead, uint32_t amountData, uint32_t offset);
 
-int8_t aip_writeMem (uint8_t aipPort, uint8_t configMem, uint32_t* dataWrite, uint16_t amountData, uint32_t offset);
+int8_t aip_writeMem (void *aipBaseAddr, uint32_t configMem, uint32_t* dataWrite, uint32_t amountData, uint32_t offset);
 
-int8_t aip_writeConfReg (uint8_t aipPort, uint8_t configConfReg, uint32_t* dataWrite, uint16_t amountData, uint32_t offset);
+int8_t aip_writeConfReg (void *aipBaseAddr, uint32_t configConfReg, uint32_t* dataWrite, uint32_t amountData, uint32_t offset);
 
-int8_t aip_start (uint8_t aipPort);
+int8_t aip_start (void *aipBaseAddr);
 
-int8_t aip_getID (uint8_t aipPort, uint32_t *id);
+//int8_t aip_getID (void *aipBaseAddr, uint32_t *id);
+int8_t aip_getID (void *aipBaseAddr, uint32_t *id);
 
-int8_t aip_getStatus (uint8_t aipPort, uint32_t* status);
 
-int8_t aip_enableINT (uint8_t aipPort, uint8_t idxInt);
-//int8_t aip_enableINT (uint8_t aipPort, uint8_t idxInt, void (*callback)());
+int8_t aip_getStatus (void *aipBaseAddr, uint32_t* status);
 
-int8_t aip_disableINT (uint8_t aipPort, uint8_t idxInt);
+int8_t aip_enableINT (void *aipBaseAddr, uint32_t idxInt);
+//int8_t aip_enableINT (void *aipBaseAddr, uint32_t idxInt, void (*callback)());
 
-int8_t aip_clearINT (uint8_t aipPort, uint8_t idxInt);
+int8_t aip_disableINT (void *aipBaseAddr, uint32_t idxInt);
 
-int8_t aip_getINT (uint8_t aipPort, uint8_t* intVector);
+int8_t aip_clearINT (void *aipBaseAddr, uint32_t idxInt);
 
-int8_t aip_getNotifications(uint8_t aipPort, uint8_t* notificationsVector);
+int8_t aip_getINT (void *aipBaseAddr, uint32_t* intVector);
+
+int8_t aip_getNotifications(void *aipBaseAddr, uint32_t* notificationsVector);
 
 #endif /* AIP_H_ */
